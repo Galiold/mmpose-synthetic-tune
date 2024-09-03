@@ -1,0 +1,3323 @@
+2024/09/03 15:09:54 - mmengine - INFO - 
+------------------------------------------------------------
+System environment:
+    sys.platform: linux
+    Python: 3.11.9 (main, Apr 19 2024, 16:48:06) [GCC 11.2.0]
+    CUDA available: True
+    MUSA available: False
+    numpy_random_seed: 1477784332
+    GPU 0: NVIDIA GeForce RTX 4080
+    CUDA_HOME: /usr/local/cuda
+    NVCC: Cuda compilation tools, release 12.4, V12.4.131
+    GCC: gcc (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
+    PyTorch: 2.4.0
+    PyTorch compiling details: PyTorch built with:
+  - GCC 9.3
+  - C++ Version: 201703
+  - Intel(R) oneAPI Math Kernel Library Version 2023.1-Product Build 20230303 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v3.4.2 (Git Hash 1137e04ec0b5251ca2b4400a4fd3c667ce843d67)
+  - OpenMP 201511 (a.k.a. OpenMP 4.5)
+  - LAPACK is enabled (usually provided by MKL)
+  - NNPACK is enabled
+  - CPU capability usage: AVX2
+  - CUDA Runtime 12.4
+  - NVCC architecture flags: -gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_90,code=sm_90
+  - CuDNN 90.1
+  - Magma 2.6.1
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=12.4, CUDNN_VERSION=9.1.0, CXX_COMPILER=/opt/rh/devtoolset-9/root/usr/bin/c++, CXX_FLAGS= -D_GLIBCXX_USE_CXX11_ABI=0 -fabi-version=11 -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOROCTRACER -DUSE_FBGEMM -DUSE_PYTORCH_QNNPACK -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -O2 -fPIC -Wall -Wextra -Werror=return-type -Werror=non-virtual-dtor -Werror=bool-operation -Wnarrowing -Wno-missing-field-initializers -Wno-type-limits -Wno-array-bounds -Wno-unknown-pragmas -Wno-unused-parameter -Wno-unused-function -Wno-unused-result -Wno-strict-overflow -Wno-strict-aliasing -Wno-stringop-overflow -Wsuggest-override -Wno-psabi -Wno-error=pedantic -Wno-error=old-style-cast -Wno-missing-braces -fdiagnostics-color=always -faligned-new -Wno-unused-but-set-variable -Wno-maybe-uninitialized -fno-math-errno -fno-trapping-math -Werror=format -Wno-stringop-overflow, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_VERSION=2.4.0, USE_CUDA=ON, USE_CUDNN=ON, USE_CUSPARSELT=1, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_GLOO=ON, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=ON, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, USE_ROCM_KERNEL_ASSERT=OFF, 
+
+    TorchVision: 0.19.0
+    OpenCV: 4.10.0
+    MMEngine: 0.10.4
+
+Runtime environment:
+    cudnn_benchmark: False
+    mp_cfg: {'mp_start_method': 'fork', 'opencv_num_threads': 0}
+    dist_cfg: {'backend': 'nccl'}
+    seed: 1477784332
+    Distributed launcher: none
+    Distributed training: False
+    GPU number: 1
+------------------------------------------------------------
+
+2024/09/03 15:09:55 - mmengine - INFO - Config:
+auto_scale_lr = dict(base_batch_size=512)
+backend_args = dict(backend='local')
+batch_size = 16
+codec = dict(
+    heatmap_size=(
+        64,
+        64,
+    ),
+    input_size=(
+        256,
+        256,
+    ),
+    sigma=2,
+    type='MSRAHeatmap')
+custom_hooks = [
+    dict(type='SyncBuffersHook'),
+]
+data_mode = 'topdown'
+data_root = '/workspace/mmpose-synthetic-tune/datasets/'
+dataset_type = 'CocoDataset'
+default_hooks = dict(
+    badcase=dict(
+        badcase_thr=5,
+        enable=False,
+        metric_type='loss',
+        out_dir='badcase',
+        type='BadCaseAnalysisHook'),
+    checkpoint=dict(
+        interval=10,
+        rule='greater',
+        save_best='coco/AP',
+        type='CheckpointHook'),
+    logger=dict(interval=50, type='LoggerHook'),
+    param_scheduler=dict(type='ParamSchedulerHook'),
+    sampler_seed=dict(type='DistSamplerSeedHook'),
+    timer=dict(type='IterTimerHook'),
+    visualization=dict(enable=False, type='PoseVisualizationHook'))
+default_scope = 'mmpose'
+env_cfg = dict(
+    cudnn_benchmark=False,
+    dist_cfg=dict(backend='nccl'),
+    mp_cfg=dict(mp_start_method='fork', opencv_num_threads=0))
+launcher = 'none'
+load_from = None
+log_level = 'INFO'
+log_processor = dict(
+    by_epoch=True, num_digits=6, type='LogProcessor', window_size=50)
+model = dict(
+    backbone=dict(
+        extra=dict(
+            stage1=dict(
+                block='BOTTLENECK',
+                num_blocks=(4, ),
+                num_branches=1,
+                num_channels=(64, ),
+                num_modules=1),
+            stage2=dict(
+                block='BASIC',
+                num_blocks=(
+                    4,
+                    4,
+                ),
+                num_branches=2,
+                num_channels=(
+                    48,
+                    96,
+                ),
+                num_modules=1),
+            stage3=dict(
+                block='BASIC',
+                num_blocks=(
+                    4,
+                    4,
+                    4,
+                ),
+                num_branches=3,
+                num_channels=(
+                    48,
+                    96,
+                    192,
+                ),
+                num_modules=4),
+            stage4=dict(
+                block='BASIC',
+                num_blocks=(
+                    4,
+                    4,
+                    4,
+                    4,
+                ),
+                num_branches=4,
+                num_channels=(
+                    48,
+                    96,
+                    192,
+                    384,
+                ),
+                num_modules=3)),
+        in_channels=3,
+        init_cfg=dict(
+            checkpoint='checkpoints/hrnet_w48-8ef0771d.pth',
+            type='Pretrained'),
+        type='HRNet'),
+    data_preprocessor=dict(
+        bgr_to_rgb=True,
+        mean=[
+            123.675,
+            116.28,
+            103.53,
+        ],
+        std=[
+            58.395,
+            57.12,
+            57.375,
+        ],
+        type='PoseDataPreprocessor'),
+    head=dict(
+        decoder=dict(
+            heatmap_size=(
+                64,
+                64,
+            ),
+            input_size=(
+                256,
+                256,
+            ),
+            sigma=2,
+            type='MSRAHeatmap'),
+        deconv_out_channels=None,
+        in_channels=48,
+        loss=dict(type='KeypointMSELoss', use_target_weight=True),
+        out_channels=20,
+        type='HeatmapHead'),
+    init_cfg=dict(
+        checkpoint='checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth',
+        type='Pretrained'),
+    test_cfg=dict(flip_mode='heatmap', flip_test=True, shift_heatmap=True),
+    type='TopdownPoseEstimator')
+optim_wrapper = dict(optimizer=dict(lr=0.0005, type='Adam'))
+param_scheduler = [
+    dict(
+        begin=0, by_epoch=False, end=500, start_factor=0.001, type='LinearLR'),
+    dict(
+        begin=0,
+        by_epoch=True,
+        end=100,
+        gamma=0.1,
+        milestones=[
+            170,
+            200,
+        ],
+        type='MultiStepLR'),
+]
+resume = True
+sample_name = 'real-simillar'
+test_cfg = dict()
+test_dataloader = dict(
+    batch_size=8,
+    dataset=dict(
+        ann_file='annotations/20kp-test.json',
+        data_mode='topdown',
+        data_prefix=dict(img='20kp-test-data/'),
+        data_root='/workspace/mmpose-synthetic-tune/datasets/',
+        metainfo=dict(from_file='custom-configs/20kp.py'),
+        pipeline=[
+            dict(type='LoadImage'),
+            dict(type='GetBBoxCenterScale'),
+            dict(input_size=(
+                256,
+                256,
+            ), type='TopdownAffine'),
+            dict(type='PackPoseInputs'),
+        ],
+        test_mode=True,
+        type='CocoDataset'),
+    drop_last=False,
+    num_workers=4,
+    persistent_workers=True,
+    sampler=dict(round_up=False, shuffle=False, type='DefaultSampler'))
+test_evaluator = [
+    dict(
+        ann_file=
+        '/workspace/mmpose-synthetic-tune/datasets/annotations/20kp-test.json',
+        format_only=False,
+        outfile_prefix='test_annotations-real_simillar',
+        type='CocoMetric'),
+    dict(out_file_path='combined.pkl', type='DumpResults'),
+]
+train_cfg = dict(by_epoch=True, max_epochs=100, val_interval=10)
+train_dataloader = dict(
+    batch_size=16,
+    dataset=dict(
+        ann_file='annotations/20kp-real-simillar-train.json',
+        data_mode='topdown',
+        data_prefix=dict(img='20kp-real-simillar-data/'),
+        data_root='/workspace/mmpose-synthetic-tune/datasets/',
+        metainfo=dict(from_file='custom-configs/20kp.py'),
+        pipeline=[
+            dict(type='LoadImage'),
+            dict(type='GetBBoxCenterScale'),
+            dict(direction='horizontal', type='RandomFlip'),
+            dict(type='RandomHalfBody'),
+            dict(type='RandomBBoxTransform'),
+            dict(input_size=(
+                256,
+                256,
+            ), type='TopdownAffine'),
+            dict(
+                encoder=dict(
+                    heatmap_size=(
+                        64,
+                        64,
+                    ),
+                    input_size=(
+                        256,
+                        256,
+                    ),
+                    sigma=2,
+                    type='MSRAHeatmap'),
+                type='GenerateTarget'),
+            dict(type='PackPoseInputs'),
+        ],
+        type='CocoDataset'),
+    num_workers=4,
+    persistent_workers=True,
+    sampler=dict(shuffle=True, type='DefaultSampler'))
+train_pipeline = [
+    dict(type='LoadImage'),
+    dict(type='GetBBoxCenterScale'),
+    dict(direction='horizontal', type='RandomFlip'),
+    dict(type='RandomHalfBody'),
+    dict(type='RandomBBoxTransform'),
+    dict(input_size=(
+        256,
+        256,
+    ), type='TopdownAffine'),
+    dict(
+        encoder=dict(
+            heatmap_size=(
+                64,
+                64,
+            ),
+            input_size=(
+                256,
+                256,
+            ),
+            sigma=2,
+            type='MSRAHeatmap'),
+        type='GenerateTarget'),
+    dict(type='PackPoseInputs'),
+]
+val_cfg = dict()
+val_dataloader = dict(
+    batch_size=8,
+    dataset=dict(
+        ann_file='annotations/20kp-real-simillar-val.json',
+        data_mode='topdown',
+        data_prefix=dict(img='20kp-real-simillar-data/'),
+        data_root='/workspace/mmpose-synthetic-tune/datasets/',
+        metainfo=dict(from_file='custom-configs/20kp.py'),
+        pipeline=[
+            dict(type='LoadImage'),
+            dict(type='GetBBoxCenterScale'),
+            dict(input_size=(
+                256,
+                256,
+            ), type='TopdownAffine'),
+            dict(type='PackPoseInputs'),
+        ],
+        test_mode=True,
+        type='CocoDataset'),
+    drop_last=False,
+    num_workers=4,
+    persistent_workers=True,
+    sampler=dict(round_up=False, shuffle=False, type='DefaultSampler'))
+val_evaluator = dict(
+    ann_file=
+    '/workspace/mmpose-synthetic-tune/datasets/annotations/20kp-real-simillar-val.json',
+    type='CocoMetric')
+val_pipeline = [
+    dict(type='LoadImage'),
+    dict(type='GetBBoxCenterScale'),
+    dict(input_size=(
+        256,
+        256,
+    ), type='TopdownAffine'),
+    dict(type='PackPoseInputs'),
+]
+vis_backends = [
+    dict(type='LocalVisBackend'),
+]
+visualizer = dict(
+    name='visualizer',
+    type='PoseLocalVisualizer',
+    vis_backends=[
+        dict(type='LocalVisBackend'),
+    ])
+work_dir = 'models/_train-2024-09-03_15-09-51-real-simillar-4'
+
+2024/09/03 15:09:56 - mmengine - INFO - Distributed training is not used, all SyncBatchNorm (SyncBN) layers in the model will be automatically reverted to BatchNormXd layers if they are used.
+2024/09/03 15:09:56 - mmengine - INFO - Hooks will be executed in the following order:
+before_run:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+before_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_train_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) DistSamplerSeedHook                
+ -------------------- 
+before_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_train_iter:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_train_epoch:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SyncBuffersHook                    
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_val_epoch:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) SyncBuffersHook                    
+ -------------------- 
+before_val_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_val_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) PoseVisualizationHook              
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_val_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(BELOW_NORMAL) LoggerHook                         
+(LOW         ) ParamSchedulerHook                 
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+after_val:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_train:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(VERY_LOW    ) CheckpointHook                     
+ -------------------- 
+before_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+before_test_epoch:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+before_test_iter:
+(NORMAL      ) IterTimerHook                      
+ -------------------- 
+after_test_iter:
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) PoseVisualizationHook              
+(NORMAL      ) BadCaseAnalysisHook                
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test_epoch:
+(VERY_HIGH   ) RuntimeInfoHook                    
+(NORMAL      ) IterTimerHook                      
+(NORMAL      ) BadCaseAnalysisHook                
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+after_test:
+(VERY_HIGH   ) RuntimeInfoHook                    
+ -------------------- 
+after_run:
+(BELOW_NORMAL) LoggerHook                         
+ -------------------- 
+2024/09/03 15:09:57 - mmengine - INFO - load model from: checkpoints/hrnet_w48-8ef0771d.pth
+2024/09/03 15:09:57 - mmengine - INFO - Loads checkpoint by local backend from path: checkpoints/hrnet_w48-8ef0771d.pth
+2024/09/03 15:09:57 - mmengine - WARNING - The model and loaded state dict do not match exactly
+
+unexpected key in source state_dict: head.0.0.0.conv1.weight, head.0.0.0.bn1.weight, head.0.0.0.bn1.bias, head.0.0.0.bn1.running_mean, head.0.0.0.bn1.running_var, head.0.0.0.conv2.weight, head.0.0.0.bn2.weight, head.0.0.0.bn2.bias, head.0.0.0.bn2.running_mean, head.0.0.0.bn2.running_var, head.0.0.0.conv3.weight, head.0.0.0.bn3.weight, head.0.0.0.bn3.bias, head.0.0.0.bn3.running_mean, head.0.0.0.bn3.running_var, head.0.0.0.downsample.0.weight, head.0.0.0.downsample.1.weight, head.0.0.0.downsample.1.bias, head.0.0.0.downsample.1.running_mean, head.0.0.0.downsample.1.running_var, head.0.1.0.conv1.weight, head.0.1.0.bn1.weight, head.0.1.0.bn1.bias, head.0.1.0.bn1.running_mean, head.0.1.0.bn1.running_var, head.0.1.0.conv2.weight, head.0.1.0.bn2.weight, head.0.1.0.bn2.bias, head.0.1.0.bn2.running_mean, head.0.1.0.bn2.running_var, head.0.1.0.conv3.weight, head.0.1.0.bn3.weight, head.0.1.0.bn3.bias, head.0.1.0.bn3.running_mean, head.0.1.0.bn3.running_var, head.0.1.0.downsample.0.weight, head.0.1.0.downsample.1.weight, head.0.1.0.downsample.1.bias, head.0.1.0.downsample.1.running_mean, head.0.1.0.downsample.1.running_var, head.0.2.0.conv1.weight, head.0.2.0.bn1.weight, head.0.2.0.bn1.bias, head.0.2.0.bn1.running_mean, head.0.2.0.bn1.running_var, head.0.2.0.conv2.weight, head.0.2.0.bn2.weight, head.0.2.0.bn2.bias, head.0.2.0.bn2.running_mean, head.0.2.0.bn2.running_var, head.0.2.0.conv3.weight, head.0.2.0.bn3.weight, head.0.2.0.bn3.bias, head.0.2.0.bn3.running_mean, head.0.2.0.bn3.running_var, head.0.2.0.downsample.0.weight, head.0.2.0.downsample.1.weight, head.0.2.0.downsample.1.bias, head.0.2.0.downsample.1.running_mean, head.0.2.0.downsample.1.running_var, head.1.0.0.conv1.weight, head.1.0.0.bn1.weight, head.1.0.0.bn1.bias, head.1.0.0.bn1.running_mean, head.1.0.0.bn1.running_var, head.1.0.0.conv2.weight, head.1.0.0.bn2.weight, head.1.0.0.bn2.bias, head.1.0.0.bn2.running_mean, head.1.0.0.bn2.running_var, head.1.0.0.conv3.weight, head.1.0.0.bn3.weight, head.1.0.0.bn3.bias, head.1.0.0.bn3.running_mean, head.1.0.0.bn3.running_var, head.1.0.0.downsample.0.weight, head.1.0.0.downsample.1.weight, head.1.0.0.downsample.1.bias, head.1.0.0.downsample.1.running_mean, head.1.0.0.downsample.1.running_var, head.1.1.0.conv1.weight, head.1.1.0.bn1.weight, head.1.1.0.bn1.bias, head.1.1.0.bn1.running_mean, head.1.1.0.bn1.running_var, head.1.1.0.conv2.weight, head.1.1.0.bn2.weight, head.1.1.0.bn2.bias, head.1.1.0.bn2.running_mean, head.1.1.0.bn2.running_var, head.1.1.0.conv3.weight, head.1.1.0.bn3.weight, head.1.1.0.bn3.bias, head.1.1.0.bn3.running_mean, head.1.1.0.bn3.running_var, head.1.1.0.downsample.0.weight, head.1.1.0.downsample.1.weight, head.1.1.0.downsample.1.bias, head.1.1.0.downsample.1.running_mean, head.1.1.0.downsample.1.running_var, head.2.0.0.conv1.weight, head.2.0.0.bn1.weight, head.2.0.0.bn1.bias, head.2.0.0.bn1.running_mean, head.2.0.0.bn1.running_var, head.2.0.0.conv2.weight, head.2.0.0.bn2.weight, head.2.0.0.bn2.bias, head.2.0.0.bn2.running_mean, head.2.0.0.bn2.running_var, head.2.0.0.conv3.weight, head.2.0.0.bn3.weight, head.2.0.0.bn3.bias, head.2.0.0.bn3.running_mean, head.2.0.0.bn3.running_var, head.2.0.0.downsample.0.weight, head.2.0.0.downsample.1.weight, head.2.0.0.downsample.1.bias, head.2.0.0.downsample.1.running_mean, head.2.0.0.downsample.1.running_var, head.3.0.0.conv1.weight, head.3.0.0.bn1.weight, head.3.0.0.bn1.bias, head.3.0.0.bn1.running_mean, head.3.0.0.bn1.running_var, head.3.0.0.conv2.weight, head.3.0.0.bn2.weight, head.3.0.0.bn2.bias, head.3.0.0.bn2.running_mean, head.3.0.0.bn2.running_var, head.3.0.0.conv3.weight, head.3.0.0.bn3.weight, head.3.0.0.bn3.bias, head.3.0.0.bn3.running_mean, head.3.0.0.bn3.running_var, head.3.0.0.downsample.0.weight, head.3.0.0.downsample.1.weight, head.3.0.0.downsample.1.bias, head.3.0.0.downsample.1.running_mean, head.3.0.0.downsample.1.running_var, fc.weight, fc.bias, stage4.2.fuse_layers.1.0.0.0.weight, stage4.2.fuse_layers.1.0.0.1.weight, stage4.2.fuse_layers.1.0.0.1.bias, stage4.2.fuse_layers.1.0.0.1.running_mean, stage4.2.fuse_layers.1.0.0.1.running_var, stage4.2.fuse_layers.1.2.0.weight, stage4.2.fuse_layers.1.2.1.weight, stage4.2.fuse_layers.1.2.1.bias, stage4.2.fuse_layers.1.2.1.running_mean, stage4.2.fuse_layers.1.2.1.running_var, stage4.2.fuse_layers.1.3.0.weight, stage4.2.fuse_layers.1.3.1.weight, stage4.2.fuse_layers.1.3.1.bias, stage4.2.fuse_layers.1.3.1.running_mean, stage4.2.fuse_layers.1.3.1.running_var, stage4.2.fuse_layers.2.0.0.0.weight, stage4.2.fuse_layers.2.0.0.1.weight, stage4.2.fuse_layers.2.0.0.1.bias, stage4.2.fuse_layers.2.0.0.1.running_mean, stage4.2.fuse_layers.2.0.0.1.running_var, stage4.2.fuse_layers.2.0.1.0.weight, stage4.2.fuse_layers.2.0.1.1.weight, stage4.2.fuse_layers.2.0.1.1.bias, stage4.2.fuse_layers.2.0.1.1.running_mean, stage4.2.fuse_layers.2.0.1.1.running_var, stage4.2.fuse_layers.2.1.0.0.weight, stage4.2.fuse_layers.2.1.0.1.weight, stage4.2.fuse_layers.2.1.0.1.bias, stage4.2.fuse_layers.2.1.0.1.running_mean, stage4.2.fuse_layers.2.1.0.1.running_var, stage4.2.fuse_layers.2.3.0.weight, stage4.2.fuse_layers.2.3.1.weight, stage4.2.fuse_layers.2.3.1.bias, stage4.2.fuse_layers.2.3.1.running_mean, stage4.2.fuse_layers.2.3.1.running_var, stage4.2.fuse_layers.3.0.0.0.weight, stage4.2.fuse_layers.3.0.0.1.weight, stage4.2.fuse_layers.3.0.0.1.bias, stage4.2.fuse_layers.3.0.0.1.running_mean, stage4.2.fuse_layers.3.0.0.1.running_var, stage4.2.fuse_layers.3.0.1.0.weight, stage4.2.fuse_layers.3.0.1.1.weight, stage4.2.fuse_layers.3.0.1.1.bias, stage4.2.fuse_layers.3.0.1.1.running_mean, stage4.2.fuse_layers.3.0.1.1.running_var, stage4.2.fuse_layers.3.0.2.0.weight, stage4.2.fuse_layers.3.0.2.1.weight, stage4.2.fuse_layers.3.0.2.1.bias, stage4.2.fuse_layers.3.0.2.1.running_mean, stage4.2.fuse_layers.3.0.2.1.running_var, stage4.2.fuse_layers.3.1.0.0.weight, stage4.2.fuse_layers.3.1.0.1.weight, stage4.2.fuse_layers.3.1.0.1.bias, stage4.2.fuse_layers.3.1.0.1.running_mean, stage4.2.fuse_layers.3.1.0.1.running_var, stage4.2.fuse_layers.3.1.1.0.weight, stage4.2.fuse_layers.3.1.1.1.weight, stage4.2.fuse_layers.3.1.1.1.bias, stage4.2.fuse_layers.3.1.1.1.running_mean, stage4.2.fuse_layers.3.1.1.1.running_var, stage4.2.fuse_layers.3.2.0.0.weight, stage4.2.fuse_layers.3.2.0.1.weight, stage4.2.fuse_layers.3.2.0.1.bias, stage4.2.fuse_layers.3.2.0.1.running_mean, stage4.2.fuse_layers.3.2.0.1.running_var
+
+2024/09/03 15:09:57 - mmengine - INFO - load model from: checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth
+2024/09/03 15:09:57 - mmengine - INFO - Loads checkpoint by local backend from path: checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth
+2024/09/03 15:09:58 - mmengine - WARNING - The model and loaded state dict do not match exactly
+
+size mismatch for head.final_layer.weight: copying a param with shape torch.Size([17, 48, 1, 1]) from checkpoint, the shape in current model is torch.Size([20, 48, 1, 1]).
+size mismatch for head.final_layer.bias: copying a param with shape torch.Size([17]) from checkpoint, the shape in current model is torch.Size([20]).
+Name of parameter - Initialization information
+
+backbone.conv1.weight - torch.Size([64, 3, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.bn1.weight - torch.Size([64]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.bn1.bias - torch.Size([64]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.conv2.weight - torch.Size([64, 64, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.bn2.weight - torch.Size([64]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.bn2.bias - torch.Size([64]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.0.conv1.weight - torch.Size([64, 64, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.0.bn1.weight - torch.Size([64]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.0.bn1.bias - torch.Size([64]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.0.conv2.weight - torch.Size([64, 64, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.0.bn2.weight - torch.Size([64]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.0.bn2.bias - torch.Size([64]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.0.conv3.weight - torch.Size([256, 64, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.0.bn3.weight - torch.Size([256]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.0.bn3.bias - torch.Size([256]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.0.downsample.0.weight - torch.Size([256, 64, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.0.downsample.1.weight - torch.Size([256]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.0.downsample.1.bias - torch.Size([256]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.1.conv1.weight - torch.Size([64, 256, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.1.bn1.weight - torch.Size([64]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.1.bn1.bias - torch.Size([64]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.1.conv2.weight - torch.Size([64, 64, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.1.bn2.weight - torch.Size([64]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.1.bn2.bias - torch.Size([64]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.1.conv3.weight - torch.Size([256, 64, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.1.bn3.weight - torch.Size([256]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.1.bn3.bias - torch.Size([256]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.2.conv1.weight - torch.Size([64, 256, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.2.bn1.weight - torch.Size([64]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.2.bn1.bias - torch.Size([64]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.2.conv2.weight - torch.Size([64, 64, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.2.bn2.weight - torch.Size([64]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.2.bn2.bias - torch.Size([64]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.2.conv3.weight - torch.Size([256, 64, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.2.bn3.weight - torch.Size([256]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.2.bn3.bias - torch.Size([256]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.3.conv1.weight - torch.Size([64, 256, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.3.bn1.weight - torch.Size([64]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.3.bn1.bias - torch.Size([64]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.3.conv2.weight - torch.Size([64, 64, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.3.bn2.weight - torch.Size([64]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.3.bn2.bias - torch.Size([64]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.3.conv3.weight - torch.Size([256, 64, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.3.bn3.weight - torch.Size([256]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.layer1.3.bn3.bias - torch.Size([256]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.transition1.0.0.weight - torch.Size([48, 256, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.transition1.0.1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.transition1.0.1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.transition1.1.0.0.weight - torch.Size([96, 256, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.transition1.1.0.1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.transition1.1.0.1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.0.0.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.0.0.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.0.0.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.0.0.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.0.0.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.0.0.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.0.1.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.0.1.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.0.1.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.0.1.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.0.1.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.0.1.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.0.2.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.0.2.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.0.2.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.0.2.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.0.2.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.0.2.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.0.3.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.0.3.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.0.3.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.0.3.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.0.3.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.0.3.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.1.0.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.1.0.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.1.0.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.1.0.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.1.0.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.1.0.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.1.1.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.1.1.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.1.1.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.1.1.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.1.1.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.1.1.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.1.2.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.1.2.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.1.2.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.1.2.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.1.2.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.1.2.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.1.3.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.1.3.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.1.3.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.1.3.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.1.3.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.branches.1.3.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.fuse_layers.0.1.0.weight - torch.Size([48, 96, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.fuse_layers.0.1.1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.fuse_layers.0.1.1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.fuse_layers.1.0.0.0.weight - torch.Size([96, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.fuse_layers.1.0.0.1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage2.0.fuse_layers.1.0.0.1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.transition2.2.0.0.weight - torch.Size([192, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.transition2.2.0.1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.transition2.2.0.1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.0.0.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.0.0.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.0.0.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.0.0.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.0.0.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.0.0.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.0.1.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.0.1.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.0.1.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.0.1.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.0.1.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.0.1.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.0.2.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.0.2.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.0.2.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.0.2.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.0.2.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.0.2.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.0.3.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.0.3.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.0.3.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.0.3.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.0.3.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.0.3.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.1.0.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.1.0.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.1.0.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.1.0.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.1.0.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.1.0.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.1.1.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.1.1.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.1.1.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.1.1.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.1.1.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.1.1.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.1.2.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.1.2.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.1.2.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.1.2.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.1.2.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.1.2.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.1.3.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.1.3.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.1.3.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.1.3.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.1.3.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.1.3.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.2.0.conv1.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.2.0.bn1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.2.0.bn1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.2.0.conv2.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.2.0.bn2.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.2.0.bn2.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.2.1.conv1.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.2.1.bn1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.2.1.bn1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.2.1.conv2.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.2.1.bn2.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.2.1.bn2.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.2.2.conv1.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.2.2.bn1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.2.2.bn1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.2.2.conv2.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.2.2.bn2.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.2.2.bn2.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.2.3.conv1.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.2.3.bn1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.2.3.bn1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.2.3.conv2.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.2.3.bn2.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.branches.2.3.bn2.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.fuse_layers.0.1.0.weight - torch.Size([48, 96, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.fuse_layers.0.1.1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.fuse_layers.0.1.1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.fuse_layers.0.2.0.weight - torch.Size([48, 192, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.fuse_layers.0.2.1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.fuse_layers.0.2.1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.fuse_layers.1.0.0.0.weight - torch.Size([96, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.fuse_layers.1.0.0.1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.fuse_layers.1.0.0.1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.fuse_layers.1.2.0.weight - torch.Size([96, 192, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.fuse_layers.1.2.1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.fuse_layers.1.2.1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.fuse_layers.2.0.0.0.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.fuse_layers.2.0.0.1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.fuse_layers.2.0.0.1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.fuse_layers.2.0.1.0.weight - torch.Size([192, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.fuse_layers.2.0.1.1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.fuse_layers.2.0.1.1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.fuse_layers.2.1.0.0.weight - torch.Size([192, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.fuse_layers.2.1.0.1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.0.fuse_layers.2.1.0.1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.0.0.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.0.0.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.0.0.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.0.0.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.0.0.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.0.0.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.0.1.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.0.1.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.0.1.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.0.1.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.0.1.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.0.1.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.0.2.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.0.2.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.0.2.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.0.2.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.0.2.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.0.2.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.0.3.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.0.3.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.0.3.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.0.3.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.0.3.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.0.3.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.1.0.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.1.0.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.1.0.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.1.0.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.1.0.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.1.0.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.1.1.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.1.1.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.1.1.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.1.1.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.1.1.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.1.1.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.1.2.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.1.2.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.1.2.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.1.2.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.1.2.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.1.2.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.1.3.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.1.3.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.1.3.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.1.3.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.1.3.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.1.3.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.2.0.conv1.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.2.0.bn1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.2.0.bn1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.2.0.conv2.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.2.0.bn2.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.2.0.bn2.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.2.1.conv1.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.2.1.bn1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.2.1.bn1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.2.1.conv2.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.2.1.bn2.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.2.1.bn2.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.2.2.conv1.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.2.2.bn1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.2.2.bn1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.2.2.conv2.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.2.2.bn2.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.2.2.bn2.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.2.3.conv1.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.2.3.bn1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.2.3.bn1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.2.3.conv2.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.2.3.bn2.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.branches.2.3.bn2.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.fuse_layers.0.1.0.weight - torch.Size([48, 96, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.fuse_layers.0.1.1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.fuse_layers.0.1.1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.fuse_layers.0.2.0.weight - torch.Size([48, 192, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.fuse_layers.0.2.1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.fuse_layers.0.2.1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.fuse_layers.1.0.0.0.weight - torch.Size([96, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.fuse_layers.1.0.0.1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.fuse_layers.1.0.0.1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.fuse_layers.1.2.0.weight - torch.Size([96, 192, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.fuse_layers.1.2.1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.fuse_layers.1.2.1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.fuse_layers.2.0.0.0.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.fuse_layers.2.0.0.1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.fuse_layers.2.0.0.1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.fuse_layers.2.0.1.0.weight - torch.Size([192, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.fuse_layers.2.0.1.1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.fuse_layers.2.0.1.1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.fuse_layers.2.1.0.0.weight - torch.Size([192, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.fuse_layers.2.1.0.1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.1.fuse_layers.2.1.0.1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.0.0.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.0.0.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.0.0.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.0.0.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.0.0.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.0.0.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.0.1.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.0.1.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.0.1.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.0.1.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.0.1.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.0.1.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.0.2.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.0.2.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.0.2.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.0.2.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.0.2.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.0.2.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.0.3.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.0.3.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.0.3.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.0.3.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.0.3.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.0.3.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.1.0.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.1.0.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.1.0.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.1.0.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.1.0.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.1.0.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.1.1.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.1.1.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.1.1.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.1.1.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.1.1.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.1.1.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.1.2.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.1.2.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.1.2.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.1.2.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.1.2.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.1.2.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.1.3.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.1.3.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.1.3.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.1.3.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.1.3.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.1.3.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.2.0.conv1.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.2.0.bn1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.2.0.bn1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.2.0.conv2.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.2.0.bn2.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.2.0.bn2.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.2.1.conv1.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.2.1.bn1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.2.1.bn1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.2.1.conv2.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.2.1.bn2.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.2.1.bn2.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.2.2.conv1.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.2.2.bn1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.2.2.bn1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.2.2.conv2.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.2.2.bn2.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.2.2.bn2.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.2.3.conv1.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.2.3.bn1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.2.3.bn1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.2.3.conv2.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.2.3.bn2.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.branches.2.3.bn2.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.fuse_layers.0.1.0.weight - torch.Size([48, 96, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.fuse_layers.0.1.1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.fuse_layers.0.1.1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.fuse_layers.0.2.0.weight - torch.Size([48, 192, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.fuse_layers.0.2.1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.fuse_layers.0.2.1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.fuse_layers.1.0.0.0.weight - torch.Size([96, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.fuse_layers.1.0.0.1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.fuse_layers.1.0.0.1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.fuse_layers.1.2.0.weight - torch.Size([96, 192, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.fuse_layers.1.2.1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.fuse_layers.1.2.1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.fuse_layers.2.0.0.0.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.fuse_layers.2.0.0.1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.fuse_layers.2.0.0.1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.fuse_layers.2.0.1.0.weight - torch.Size([192, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.fuse_layers.2.0.1.1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.fuse_layers.2.0.1.1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.fuse_layers.2.1.0.0.weight - torch.Size([192, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.fuse_layers.2.1.0.1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.2.fuse_layers.2.1.0.1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.0.0.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.0.0.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.0.0.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.0.0.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.0.0.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.0.0.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.0.1.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.0.1.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.0.1.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.0.1.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.0.1.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.0.1.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.0.2.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.0.2.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.0.2.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.0.2.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.0.2.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.0.2.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.0.3.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.0.3.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.0.3.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.0.3.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.0.3.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.0.3.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.1.0.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.1.0.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.1.0.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.1.0.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.1.0.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.1.0.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.1.1.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.1.1.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.1.1.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.1.1.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.1.1.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.1.1.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.1.2.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.1.2.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.1.2.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.1.2.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.1.2.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.1.2.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.1.3.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.1.3.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.1.3.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.1.3.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.1.3.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.1.3.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.2.0.conv1.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.2.0.bn1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.2.0.bn1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.2.0.conv2.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.2.0.bn2.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.2.0.bn2.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.2.1.conv1.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.2.1.bn1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.2.1.bn1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.2.1.conv2.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.2.1.bn2.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.2.1.bn2.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.2.2.conv1.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.2.2.bn1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.2.2.bn1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.2.2.conv2.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.2.2.bn2.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.2.2.bn2.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.2.3.conv1.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.2.3.bn1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.2.3.bn1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.2.3.conv2.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.2.3.bn2.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.branches.2.3.bn2.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.fuse_layers.0.1.0.weight - torch.Size([48, 96, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.fuse_layers.0.1.1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.fuse_layers.0.1.1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.fuse_layers.0.2.0.weight - torch.Size([48, 192, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.fuse_layers.0.2.1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.fuse_layers.0.2.1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.fuse_layers.1.0.0.0.weight - torch.Size([96, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.fuse_layers.1.0.0.1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.fuse_layers.1.0.0.1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.fuse_layers.1.2.0.weight - torch.Size([96, 192, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.fuse_layers.1.2.1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.fuse_layers.1.2.1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.fuse_layers.2.0.0.0.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.fuse_layers.2.0.0.1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.fuse_layers.2.0.0.1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.fuse_layers.2.0.1.0.weight - torch.Size([192, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.fuse_layers.2.0.1.1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.fuse_layers.2.0.1.1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.fuse_layers.2.1.0.0.weight - torch.Size([192, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.fuse_layers.2.1.0.1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage3.3.fuse_layers.2.1.0.1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.transition3.3.0.0.weight - torch.Size([384, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.transition3.3.0.1.weight - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.transition3.3.0.1.bias - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.0.0.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.0.0.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.0.0.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.0.0.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.0.0.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.0.0.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.0.1.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.0.1.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.0.1.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.0.1.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.0.1.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.0.1.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.0.2.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.0.2.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.0.2.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.0.2.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.0.2.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.0.2.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.0.3.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.0.3.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.0.3.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.0.3.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.0.3.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.0.3.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.1.0.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.1.0.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.1.0.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.1.0.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.1.0.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.1.0.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.1.1.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.1.1.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.1.1.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.1.1.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.1.1.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.1.1.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.1.2.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.1.2.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.1.2.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.1.2.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.1.2.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.1.2.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.1.3.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.1.3.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.1.3.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.1.3.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.1.3.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.1.3.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.2.0.conv1.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.2.0.bn1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.2.0.bn1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.2.0.conv2.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.2.0.bn2.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.2.0.bn2.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.2.1.conv1.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.2.1.bn1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.2.1.bn1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.2.1.conv2.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.2.1.bn2.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.2.1.bn2.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.2.2.conv1.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.2.2.bn1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.2.2.bn1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.2.2.conv2.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.2.2.bn2.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.2.2.bn2.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.2.3.conv1.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.2.3.bn1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.2.3.bn1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.2.3.conv2.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.2.3.bn2.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.2.3.bn2.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.3.0.conv1.weight - torch.Size([384, 384, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.3.0.bn1.weight - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.3.0.bn1.bias - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.3.0.conv2.weight - torch.Size([384, 384, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.3.0.bn2.weight - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.3.0.bn2.bias - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.3.1.conv1.weight - torch.Size([384, 384, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.3.1.bn1.weight - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.3.1.bn1.bias - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.3.1.conv2.weight - torch.Size([384, 384, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.3.1.bn2.weight - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.3.1.bn2.bias - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.3.2.conv1.weight - torch.Size([384, 384, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.3.2.bn1.weight - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.3.2.bn1.bias - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.3.2.conv2.weight - torch.Size([384, 384, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.3.2.bn2.weight - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.3.2.bn2.bias - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.3.3.conv1.weight - torch.Size([384, 384, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.3.3.bn1.weight - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.3.3.bn1.bias - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.3.3.conv2.weight - torch.Size([384, 384, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.3.3.bn2.weight - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.branches.3.3.bn2.bias - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.0.1.0.weight - torch.Size([48, 96, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.0.1.1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.0.1.1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.0.2.0.weight - torch.Size([48, 192, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.0.2.1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.0.2.1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.0.3.0.weight - torch.Size([48, 384, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.0.3.1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.0.3.1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.1.0.0.0.weight - torch.Size([96, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.1.0.0.1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.1.0.0.1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.1.2.0.weight - torch.Size([96, 192, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.1.2.1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.1.2.1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.1.3.0.weight - torch.Size([96, 384, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.1.3.1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.1.3.1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.2.0.0.0.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.2.0.0.1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.2.0.0.1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.2.0.1.0.weight - torch.Size([192, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.2.0.1.1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.2.0.1.1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.2.1.0.0.weight - torch.Size([192, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.2.1.0.1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.2.1.0.1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.2.3.0.weight - torch.Size([192, 384, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.2.3.1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.2.3.1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.3.0.0.0.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.3.0.0.1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.3.0.0.1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.3.0.1.0.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.3.0.1.1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.3.0.1.1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.3.0.2.0.weight - torch.Size([384, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.3.0.2.1.weight - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.3.0.2.1.bias - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.3.1.0.0.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.3.1.0.1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.3.1.0.1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.3.1.1.0.weight - torch.Size([384, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.3.1.1.1.weight - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.3.1.1.1.bias - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.3.2.0.0.weight - torch.Size([384, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.3.2.0.1.weight - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.0.fuse_layers.3.2.0.1.bias - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.0.0.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.0.0.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.0.0.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.0.0.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.0.0.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.0.0.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.0.1.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.0.1.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.0.1.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.0.1.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.0.1.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.0.1.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.0.2.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.0.2.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.0.2.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.0.2.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.0.2.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.0.2.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.0.3.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.0.3.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.0.3.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.0.3.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.0.3.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.0.3.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.1.0.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.1.0.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.1.0.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.1.0.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.1.0.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.1.0.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.1.1.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.1.1.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.1.1.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.1.1.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.1.1.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.1.1.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.1.2.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.1.2.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.1.2.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.1.2.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.1.2.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.1.2.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.1.3.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.1.3.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.1.3.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.1.3.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.1.3.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.1.3.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.2.0.conv1.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.2.0.bn1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.2.0.bn1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.2.0.conv2.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.2.0.bn2.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.2.0.bn2.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.2.1.conv1.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.2.1.bn1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.2.1.bn1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.2.1.conv2.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.2.1.bn2.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.2.1.bn2.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.2.2.conv1.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.2.2.bn1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.2.2.bn1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.2.2.conv2.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.2.2.bn2.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.2.2.bn2.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.2.3.conv1.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.2.3.bn1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.2.3.bn1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.2.3.conv2.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.2.3.bn2.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.2.3.bn2.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.3.0.conv1.weight - torch.Size([384, 384, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.3.0.bn1.weight - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.3.0.bn1.bias - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.3.0.conv2.weight - torch.Size([384, 384, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.3.0.bn2.weight - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.3.0.bn2.bias - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.3.1.conv1.weight - torch.Size([384, 384, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.3.1.bn1.weight - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.3.1.bn1.bias - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.3.1.conv2.weight - torch.Size([384, 384, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.3.1.bn2.weight - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.3.1.bn2.bias - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.3.2.conv1.weight - torch.Size([384, 384, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.3.2.bn1.weight - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.3.2.bn1.bias - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.3.2.conv2.weight - torch.Size([384, 384, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.3.2.bn2.weight - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.3.2.bn2.bias - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.3.3.conv1.weight - torch.Size([384, 384, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.3.3.bn1.weight - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.3.3.bn1.bias - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.3.3.conv2.weight - torch.Size([384, 384, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.3.3.bn2.weight - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.branches.3.3.bn2.bias - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.0.1.0.weight - torch.Size([48, 96, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.0.1.1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.0.1.1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.0.2.0.weight - torch.Size([48, 192, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.0.2.1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.0.2.1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.0.3.0.weight - torch.Size([48, 384, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.0.3.1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.0.3.1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.1.0.0.0.weight - torch.Size([96, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.1.0.0.1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.1.0.0.1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.1.2.0.weight - torch.Size([96, 192, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.1.2.1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.1.2.1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.1.3.0.weight - torch.Size([96, 384, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.1.3.1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.1.3.1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.2.0.0.0.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.2.0.0.1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.2.0.0.1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.2.0.1.0.weight - torch.Size([192, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.2.0.1.1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.2.0.1.1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.2.1.0.0.weight - torch.Size([192, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.2.1.0.1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.2.1.0.1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.2.3.0.weight - torch.Size([192, 384, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.2.3.1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.2.3.1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.3.0.0.0.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.3.0.0.1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.3.0.0.1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.3.0.1.0.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.3.0.1.1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.3.0.1.1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.3.0.2.0.weight - torch.Size([384, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.3.0.2.1.weight - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.3.0.2.1.bias - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.3.1.0.0.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.3.1.0.1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.3.1.0.1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.3.1.1.0.weight - torch.Size([384, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.3.1.1.1.weight - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.3.1.1.1.bias - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.3.2.0.0.weight - torch.Size([384, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.3.2.0.1.weight - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.1.fuse_layers.3.2.0.1.bias - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.0.0.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.0.0.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.0.0.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.0.0.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.0.0.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.0.0.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.0.1.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.0.1.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.0.1.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.0.1.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.0.1.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.0.1.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.0.2.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.0.2.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.0.2.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.0.2.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.0.2.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.0.2.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.0.3.conv1.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.0.3.bn1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.0.3.bn1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.0.3.conv2.weight - torch.Size([48, 48, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.0.3.bn2.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.0.3.bn2.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.1.0.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.1.0.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.1.0.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.1.0.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.1.0.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.1.0.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.1.1.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.1.1.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.1.1.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.1.1.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.1.1.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.1.1.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.1.2.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.1.2.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.1.2.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.1.2.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.1.2.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.1.2.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.1.3.conv1.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.1.3.bn1.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.1.3.bn1.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.1.3.conv2.weight - torch.Size([96, 96, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.1.3.bn2.weight - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.1.3.bn2.bias - torch.Size([96]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.2.0.conv1.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.2.0.bn1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.2.0.bn1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.2.0.conv2.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.2.0.bn2.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.2.0.bn2.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.2.1.conv1.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.2.1.bn1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.2.1.bn1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.2.1.conv2.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.2.1.bn2.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.2.1.bn2.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.2.2.conv1.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.2.2.bn1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.2.2.bn1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.2.2.conv2.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.2.2.bn2.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.2.2.bn2.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.2.3.conv1.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.2.3.bn1.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.2.3.bn1.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.2.3.conv2.weight - torch.Size([192, 192, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.2.3.bn2.weight - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.2.3.bn2.bias - torch.Size([192]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.3.0.conv1.weight - torch.Size([384, 384, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.3.0.bn1.weight - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.3.0.bn1.bias - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.3.0.conv2.weight - torch.Size([384, 384, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.3.0.bn2.weight - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.3.0.bn2.bias - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.3.1.conv1.weight - torch.Size([384, 384, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.3.1.bn1.weight - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.3.1.bn1.bias - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.3.1.conv2.weight - torch.Size([384, 384, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.3.1.bn2.weight - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.3.1.bn2.bias - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.3.2.conv1.weight - torch.Size([384, 384, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.3.2.bn1.weight - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.3.2.bn1.bias - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.3.2.conv2.weight - torch.Size([384, 384, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.3.2.bn2.weight - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.3.2.bn2.bias - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.3.3.conv1.weight - torch.Size([384, 384, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.3.3.bn1.weight - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.3.3.bn1.bias - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.3.3.conv2.weight - torch.Size([384, 384, 3, 3]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.3.3.bn2.weight - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.branches.3.3.bn2.bias - torch.Size([384]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.fuse_layers.0.1.0.weight - torch.Size([48, 96, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.fuse_layers.0.1.1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.fuse_layers.0.1.1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.fuse_layers.0.2.0.weight - torch.Size([48, 192, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.fuse_layers.0.2.1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.fuse_layers.0.2.1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.fuse_layers.0.3.0.weight - torch.Size([48, 384, 1, 1]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.fuse_layers.0.3.1.weight - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+backbone.stage4.2.fuse_layers.0.3.1.bias - torch.Size([48]): 
+PretrainedInit: load from checkpoints/hrnet_w48_ap10k_256x256-d95ab412_20211029.pth 
+
+head.final_layer.weight - torch.Size([20, 48, 1, 1]): 
+NormalInit: mean=0, std=0.001, bias=0 
+
+head.final_layer.bias - torch.Size([20]): 
+NormalInit: mean=0, std=0.001, bias=0 
+2024/09/03 15:09:58 - mmengine - INFO - Auto resumed from the latest checkpoint None.
+2024/09/03 15:09:58 - mmengine - WARNING - "FileClient" will be deprecated in future. Please use io functions in https://mmengine.readthedocs.io/en/latest/api/fileio.html#file-io
+2024/09/03 15:09:58 - mmengine - WARNING - "HardDiskBackend" is the alias of "LocalBackend" and the former will be deprecated in future.
+2024/09/03 15:09:58 - mmengine - INFO - Checkpoints will be saved to /workspace/mmpose-synthetic-tune/models/_train-2024-09-03_15-09-51-real-simillar-4.
+2024/09/03 15:10:00 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:00 - mmengine - INFO - Epoch(train)   [1][5/5]  lr: 4.504008e-06  eta: 0:03:29  time: 0.423322  data_time: 0.137741  memory: 4929  loss: 0.002738  loss_kpt: 0.002738  acc_pose: 0.059693
+2024/09/03 15:10:01 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:01 - mmengine - INFO - Epoch(train)   [2][5/5]  lr: 9.509018e-06  eta: 0:02:47  time: 0.340891  data_time: 0.106008  memory: 4929  loss: 0.002767  loss_kpt: 0.002767  acc_pose: 0.060208
+2024/09/03 15:10:02 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:02 - mmengine - INFO - Epoch(train)   [3][5/5]  lr: 1.451403e-05  eta: 0:02:31  time: 0.311682  data_time: 0.094379  memory: 4929  loss: 0.002766  loss_kpt: 0.002766  acc_pose: 0.084464
+2024/09/03 15:10:04 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:04 - mmengine - INFO - Epoch(train)   [4][5/5]  lr: 1.951904e-05  eta: 0:02:21  time: 0.295313  data_time: 0.086980  memory: 4929  loss: 0.002772  loss_kpt: 0.002772  acc_pose: 0.115625
+2024/09/03 15:10:05 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:05 - mmengine - INFO - Epoch(train)   [5][5/5]  lr: 2.452405e-05  eta: 0:02:15  time: 0.285422  data_time: 0.083277  memory: 4929  loss: 0.002751  loss_kpt: 0.002751  acc_pose: 0.169345
+2024/09/03 15:10:06 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:06 - mmengine - INFO - Epoch(train)   [6][5/5]  lr: 2.952906e-05  eta: 0:02:11  time: 0.279263  data_time: 0.080970  memory: 4929  loss: 0.002762  loss_kpt: 0.002762  acc_pose: 0.271042
+2024/09/03 15:10:07 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:07 - mmengine - INFO - Epoch(train)   [7][5/5]  lr: 3.453407e-05  eta: 0:02:07  time: 0.273934  data_time: 0.079354  memory: 4929  loss: 0.002758  loss_kpt: 0.002758  acc_pose: 0.257438
+2024/09/03 15:10:08 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:08 - mmengine - INFO - Epoch(train)   [8][5/5]  lr: 3.953908e-05  eta: 0:02:04  time: 0.270110  data_time: 0.077890  memory: 4929  loss: 0.002758  loss_kpt: 0.002758  acc_pose: 0.330060
+2024/09/03 15:10:10 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:10 - mmengine - INFO - Epoch(train)   [9][5/5]  lr: 4.454409e-05  eta: 0:02:01  time: 0.267643  data_time: 0.076987  memory: 4929  loss: 0.002757  loss_kpt: 0.002757  acc_pose: 0.349077
+2024/09/03 15:10:11 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:11 - mmengine - INFO - Epoch(train)  [10][5/5]  lr: 4.954910e-05  eta: 0:01:59  time: 0.264958  data_time: 0.076100  memory: 4929  loss: 0.002750  loss_kpt: 0.002750  acc_pose: 0.400357
+2024/09/03 15:10:11 - mmengine - INFO - Saving checkpoint at 10 epochs
+2024/09/03 15:10:14 - mmengine - INFO - Evaluating CocoMetric...
+2024/09/03 15:10:14 - mmengine - INFO - Epoch(val) [10][3/3]    coco/AP: 0.471362  coco/AP .5: 1.000000  coco/AP .75: 0.110240  coco/AP (M): -1.000000  coco/AP (L): 0.471362  coco/AR: 0.500000  coco/AR .5: 1.000000  coco/AR .75: 0.263158  coco/AR (M): -1.000000  coco/AR (L): 0.500000  data_time: 0.077159  time: 0.279315
+2024/09/03 15:10:14 - mmengine - INFO - The best checkpoint with 0.4714 coco/AP at 10 epoch is saved to best_coco_AP_epoch_10.pth.
+2024/09/03 15:10:18 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:18 - mmengine - INFO - Epoch(train)  [11][5/5]  lr: 5.455411e-05  eta: 0:01:59  time: 0.252869  data_time: 0.070057  memory: 4929  loss: 0.002751  loss_kpt: 0.002751  acc_pose: 0.401607
+2024/09/03 15:10:19 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:19 - mmengine - INFO - Epoch(train)  [12][5/5]  lr: 5.955912e-05  eta: 0:01:57  time: 0.253425  data_time: 0.069663  memory: 4929  loss: 0.002738  loss_kpt: 0.002738  acc_pose: 0.419702
+2024/09/03 15:10:21 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:21 - mmengine - INFO - Epoch(train)  [13][5/5]  lr: 6.456413e-05  eta: 0:01:56  time: 0.254022  data_time: 0.070104  memory: 4929  loss: 0.002723  loss_kpt: 0.002723  acc_pose: 0.372370
+2024/09/03 15:10:22 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:22 - mmengine - INFO - Epoch(train)  [14][5/5]  lr: 6.956914e-05  eta: 0:01:55  time: 0.256560  data_time: 0.071354  memory: 4929  loss: 0.002702  loss_kpt: 0.002702  acc_pose: 0.368958
+2024/09/03 15:10:23 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:23 - mmengine - INFO - Epoch(train)  [15][5/5]  lr: 7.457415e-05  eta: 0:01:53  time: 0.257614  data_time: 0.071486  memory: 4929  loss: 0.002685  loss_kpt: 0.002685  acc_pose: 0.406923
+2024/09/03 15:10:24 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:24 - mmengine - INFO - Epoch(train)  [16][5/5]  lr: 7.957916e-05  eta: 0:01:51  time: 0.258655  data_time: 0.071921  memory: 4929  loss: 0.002648  loss_kpt: 0.002648  acc_pose: 0.397411
+2024/09/03 15:10:26 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:26 - mmengine - INFO - Epoch(train)  [17][5/5]  lr: 8.458417e-05  eta: 0:01:50  time: 0.260510  data_time: 0.071641  memory: 4929  loss: 0.002616  loss_kpt: 0.002616  acc_pose: 0.469016
+2024/09/03 15:10:27 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:27 - mmengine - INFO - Epoch(train)  [18][5/5]  lr: 8.958918e-05  eta: 0:01:48  time: 0.261331  data_time: 0.071727  memory: 4929  loss: 0.002574  loss_kpt: 0.002574  acc_pose: 0.493631
+2024/09/03 15:10:28 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:28 - mmengine - INFO - Epoch(train)  [19][5/5]  lr: 9.459419e-05  eta: 0:01:47  time: 0.261474  data_time: 0.071887  memory: 4929  loss: 0.002516  loss_kpt: 0.002516  acc_pose: 0.527857
+2024/09/03 15:10:30 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:30 - mmengine - INFO - Epoch(train)  [20][5/5]  lr: 9.959920e-05  eta: 0:01:45  time: 0.263223  data_time: 0.072029  memory: 4929  loss: 0.002453  loss_kpt: 0.002453  acc_pose: 0.573720
+2024/09/03 15:10:30 - mmengine - INFO - Saving checkpoint at 20 epochs
+2024/09/03 15:10:31 - mmengine - INFO - Evaluating CocoMetric...
+2024/09/03 15:10:31 - mmengine - INFO - Epoch(val) [20][3/3]    coco/AP: 0.645352  coco/AP .5: 1.000000  coco/AP .75: 0.940594  coco/AP (M): -1.000000  coco/AP (L): 0.645352  coco/AR: 0.657895  coco/AR .5: 1.000000  coco/AR .75: 0.947368  coco/AR (M): -1.000000  coco/AR (L): 0.657895  data_time: 0.023342  time: 0.157804
+2024/09/03 15:10:32 - mmengine - INFO - The previous best checkpoint /workspace/mmpose-synthetic-tune/models/_train-2024-09-03_15-09-51-real-simillar-4/best_coco_AP_epoch_10.pth is removed
+2024/09/03 15:10:32 - mmengine - INFO - The best checkpoint with 0.6454 coco/AP at 20 epoch is saved to best_coco_AP_epoch_20.pth.
+2024/09/03 15:10:35 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:35 - mmengine - INFO - Epoch(train)  [21][5/5]  lr: 1.046042e-04  eta: 0:01:44  time: 0.259822  data_time: 0.071263  memory: 4929  loss: 0.002377  loss_kpt: 0.002377  acc_pose: 0.578180
+2024/09/03 15:10:36 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:36 - mmengine - INFO - Epoch(train)  [22][5/5]  lr: 1.096092e-04  eta: 0:01:42  time: 0.259174  data_time: 0.072089  memory: 4929  loss: 0.002307  loss_kpt: 0.002307  acc_pose: 0.578750
+2024/09/03 15:10:38 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:38 - mmengine - INFO - Epoch(train)  [23][5/5]  lr: 1.146142e-04  eta: 0:01:41  time: 0.258017  data_time: 0.071491  memory: 4929  loss: 0.002231  loss_kpt: 0.002231  acc_pose: 0.578304
+2024/09/03 15:10:39 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:39 - mmengine - INFO - Epoch(train)  [24][5/5]  lr: 1.196192e-04  eta: 0:01:39  time: 0.256211  data_time: 0.070476  memory: 4929  loss: 0.002151  loss_kpt: 0.002151  acc_pose: 0.601458
+2024/09/03 15:10:40 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:40 - mmengine - INFO - Epoch(train)  [25][5/5]  lr: 1.246242e-04  eta: 0:01:38  time: 0.256007  data_time: 0.070888  memory: 4929  loss: 0.002071  loss_kpt: 0.002071  acc_pose: 0.626518
+2024/09/03 15:10:41 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:41 - mmengine - INFO - Epoch(train)  [26][5/5]  lr: 1.296293e-04  eta: 0:01:37  time: 0.255507  data_time: 0.070779  memory: 4929  loss: 0.001988  loss_kpt: 0.001988  acc_pose: 0.592138
+2024/09/03 15:10:43 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:43 - mmengine - INFO - Epoch(train)  [27][5/5]  lr: 1.346343e-04  eta: 0:01:35  time: 0.253618  data_time: 0.071066  memory: 4929  loss: 0.001899  loss_kpt: 0.001899  acc_pose: 0.635089
+2024/09/03 15:10:44 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:44 - mmengine - INFO - Epoch(train)  [28][5/5]  lr: 1.396393e-04  eta: 0:01:33  time: 0.253101  data_time: 0.070940  memory: 4929  loss: 0.001814  loss_kpt: 0.001814  acc_pose: 0.625522
+2024/09/03 15:10:45 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:45 - mmengine - INFO - Epoch(train)  [29][5/5]  lr: 1.446443e-04  eta: 0:01:32  time: 0.252473  data_time: 0.070283  memory: 4929  loss: 0.001745  loss_kpt: 0.001745  acc_pose: 0.617500
+2024/09/03 15:10:46 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:46 - mmengine - INFO - Epoch(train)  [30][5/5]  lr: 1.496493e-04  eta: 0:01:31  time: 0.251907  data_time: 0.070329  memory: 4929  loss: 0.001680  loss_kpt: 0.001680  acc_pose: 0.669922
+2024/09/03 15:10:46 - mmengine - INFO - Saving checkpoint at 30 epochs
+2024/09/03 15:10:48 - mmengine - INFO - Evaluating CocoMetric...
+2024/09/03 15:10:48 - mmengine - INFO - Epoch(val) [30][3/3]    coco/AP: 0.729367  coco/AP .5: 1.000000  coco/AP .75: 1.000000  coco/AP (M): -1.000000  coco/AP (L): 0.729367  coco/AR: 0.747368  coco/AR .5: 1.000000  coco/AR .75: 1.000000  coco/AR (M): -1.000000  coco/AR (L): 0.747368  data_time: 0.022621  time: 0.124134
+2024/09/03 15:10:48 - mmengine - INFO - The previous best checkpoint /workspace/mmpose-synthetic-tune/models/_train-2024-09-03_15-09-51-real-simillar-4/best_coco_AP_epoch_20.pth is removed
+2024/09/03 15:10:49 - mmengine - INFO - The best checkpoint with 0.7294 coco/AP at 30 epoch is saved to best_coco_AP_epoch_30.pth.
+2024/09/03 15:10:52 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:52 - mmengine - INFO - Epoch(train)  [31][5/5]  lr: 1.546543e-04  eta: 0:01:29  time: 0.253423  data_time: 0.070089  memory: 4929  loss: 0.001616  loss_kpt: 0.001616  acc_pose: 0.682956
+2024/09/03 15:10:53 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:53 - mmengine - INFO - Epoch(train)  [32][5/5]  lr: 1.596593e-04  eta: 0:01:28  time: 0.254113  data_time: 0.069319  memory: 4929  loss: 0.001552  loss_kpt: 0.001552  acc_pose: 0.667139
+2024/09/03 15:10:54 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:54 - mmengine - INFO - Epoch(train)  [33][5/5]  lr: 1.646643e-04  eta: 0:01:27  time: 0.253777  data_time: 0.069398  memory: 4929  loss: 0.001496  loss_kpt: 0.001496  acc_pose: 0.760476
+2024/09/03 15:10:56 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:56 - mmengine - INFO - Epoch(train)  [34][5/5]  lr: 1.696693e-04  eta: 0:01:25  time: 0.254818  data_time: 0.072481  memory: 4929  loss: 0.001439  loss_kpt: 0.001439  acc_pose: 0.771250
+2024/09/03 15:10:57 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:57 - mmengine - INFO - Epoch(train)  [35][5/5]  lr: 1.746743e-04  eta: 0:01:24  time: 0.254464  data_time: 0.072219  memory: 4929  loss: 0.001390  loss_kpt: 0.001390  acc_pose: 0.758395
+2024/09/03 15:10:58 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:58 - mmengine - INFO - Epoch(train)  [36][5/5]  lr: 1.796794e-04  eta: 0:01:23  time: 0.254359  data_time: 0.072820  memory: 4929  loss: 0.001344  loss_kpt: 0.001344  acc_pose: 0.742303
+2024/09/03 15:10:59 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:10:59 - mmengine - INFO - Epoch(train)  [37][5/5]  lr: 1.846844e-04  eta: 0:01:21  time: 0.253390  data_time: 0.072329  memory: 4929  loss: 0.001302  loss_kpt: 0.001302  acc_pose: 0.800142
+2024/09/03 15:11:01 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:01 - mmengine - INFO - Epoch(train)  [38][5/5]  lr: 1.896894e-04  eta: 0:01:20  time: 0.252954  data_time: 0.072663  memory: 4929  loss: 0.001264  loss_kpt: 0.001264  acc_pose: 0.844554
+2024/09/03 15:11:02 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:02 - mmengine - INFO - Epoch(train)  [39][5/5]  lr: 1.946944e-04  eta: 0:01:18  time: 0.251995  data_time: 0.072597  memory: 4929  loss: 0.001220  loss_kpt: 0.001220  acc_pose: 0.821133
+2024/09/03 15:11:03 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:03 - mmengine - INFO - Epoch(train)  [40][5/5]  lr: 1.996994e-04  eta: 0:01:17  time: 0.250788  data_time: 0.072169  memory: 4929  loss: 0.001181  loss_kpt: 0.001181  acc_pose: 0.821786
+2024/09/03 15:11:03 - mmengine - INFO - Saving checkpoint at 40 epochs
+2024/09/03 15:11:05 - mmengine - INFO - Evaluating CocoMetric...
+2024/09/03 15:11:05 - mmengine - INFO - Epoch(val) [40][3/3]    coco/AP: 0.893936  coco/AP .5: 1.000000  coco/AP .75: 1.000000  coco/AP (M): -1.000000  coco/AP (L): 0.893936  coco/AR: 0.905263  coco/AR .5: 1.000000  coco/AR .75: 1.000000  coco/AR (M): -1.000000  coco/AR (L): 0.905263  data_time: 0.022463  time: 0.123012
+2024/09/03 15:11:05 - mmengine - INFO - The previous best checkpoint /workspace/mmpose-synthetic-tune/models/_train-2024-09-03_15-09-51-real-simillar-4/best_coco_AP_epoch_30.pth is removed
+2024/09/03 15:11:05 - mmengine - INFO - The best checkpoint with 0.8939 coco/AP at 40 epoch is saved to best_coco_AP_epoch_40.pth.
+2024/09/03 15:11:08 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:08 - mmengine - INFO - Epoch(train)  [41][5/5]  lr: 2.047044e-04  eta: 0:01:16  time: 0.248437  data_time: 0.072021  memory: 4929  loss: 0.001144  loss_kpt: 0.001144  acc_pose: 0.841124
+2024/09/03 15:11:09 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:09 - mmengine - INFO - Epoch(train)  [42][5/5]  lr: 2.097094e-04  eta: 0:01:14  time: 0.245940  data_time: 0.071940  memory: 4929  loss: 0.001106  loss_kpt: 0.001106  acc_pose: 0.852555
+2024/09/03 15:11:11 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:11 - mmengine - INFO - Epoch(train)  [43][5/5]  lr: 2.147144e-04  eta: 0:01:13  time: 0.247149  data_time: 0.072371  memory: 4929  loss: 0.001066  loss_kpt: 0.001066  acc_pose: 0.906875
+2024/09/03 15:11:12 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:12 - mmengine - INFO - Epoch(train)  [44][5/5]  lr: 2.197194e-04  eta: 0:01:12  time: 0.246135  data_time: 0.069929  memory: 4929  loss: 0.001031  loss_kpt: 0.001031  acc_pose: 0.878340
+2024/09/03 15:11:13 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:13 - mmengine - INFO - Epoch(train)  [45][5/5]  lr: 2.247244e-04  eta: 0:01:10  time: 0.245199  data_time: 0.069778  memory: 4929  loss: 0.000993  loss_kpt: 0.000993  acc_pose: 0.861030
+2024/09/03 15:11:14 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:14 - mmengine - INFO - Epoch(train)  [46][5/5]  lr: 2.297295e-04  eta: 0:01:09  time: 0.244595  data_time: 0.068920  memory: 4929  loss: 0.000956  loss_kpt: 0.000956  acc_pose: 0.903631
+2024/09/03 15:11:16 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:16 - mmengine - INFO - Epoch(train)  [47][5/5]  lr: 2.347345e-04  eta: 0:01:07  time: 0.245333  data_time: 0.069391  memory: 4929  loss: 0.000921  loss_kpt: 0.000921  acc_pose: 0.919167
+2024/09/03 15:11:17 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:17 - mmengine - INFO - Epoch(train)  [48][5/5]  lr: 2.397395e-04  eta: 0:01:06  time: 0.245734  data_time: 0.069300  memory: 4929  loss: 0.000885  loss_kpt: 0.000885  acc_pose: 0.908304
+2024/09/03 15:11:18 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:18 - mmengine - INFO - Epoch(train)  [49][5/5]  lr: 2.447445e-04  eta: 0:01:05  time: 0.246201  data_time: 0.069362  memory: 4929  loss: 0.000851  loss_kpt: 0.000851  acc_pose: 0.906071
+2024/09/03 15:11:19 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:19 - mmengine - INFO - Epoch(train)  [50][5/5]  lr: 2.497495e-04  eta: 0:01:03  time: 0.248783  data_time: 0.069944  memory: 4929  loss: 0.000812  loss_kpt: 0.000812  acc_pose: 0.936110
+2024/09/03 15:11:19 - mmengine - INFO - Saving checkpoint at 50 epochs
+2024/09/03 15:11:21 - mmengine - INFO - Evaluating CocoMetric...
+2024/09/03 15:11:21 - mmengine - INFO - Epoch(val) [50][3/3]    coco/AP: 0.986354  coco/AP .5: 1.000000  coco/AP .75: 1.000000  coco/AP (M): -1.000000  coco/AP (L): 0.986354  coco/AR: 0.989474  coco/AR .5: 1.000000  coco/AR .75: 1.000000  coco/AR (M): -1.000000  coco/AR (L): 0.989474  data_time: 0.022390  time: 0.126124
+2024/09/03 15:11:21 - mmengine - INFO - The previous best checkpoint /workspace/mmpose-synthetic-tune/models/_train-2024-09-03_15-09-51-real-simillar-4/best_coco_AP_epoch_40.pth is removed
+2024/09/03 15:11:22 - mmengine - INFO - The best checkpoint with 0.9864 coco/AP at 50 epoch is saved to best_coco_AP_epoch_50.pth.
+2024/09/03 15:11:25 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:25 - mmengine - INFO - Epoch(train)  [51][5/5]  lr: 2.547545e-04  eta: 0:01:02  time: 0.250328  data_time: 0.070134  memory: 4929  loss: 0.000774  loss_kpt: 0.000774  acc_pose: 0.952083
+2024/09/03 15:11:26 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:26 - mmengine - INFO - Epoch(train)  [52][5/5]  lr: 2.597595e-04  eta: 0:01:01  time: 0.252226  data_time: 0.070508  memory: 4929  loss: 0.000743  loss_kpt: 0.000743  acc_pose: 0.958333
+2024/09/03 15:11:27 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:27 - mmengine - INFO - Epoch(train)  [53][5/5]  lr: 2.647645e-04  eta: 0:01:00  time: 0.254987  data_time: 0.069864  memory: 4929  loss: 0.000710  loss_kpt: 0.000710  acc_pose: 0.962083
+2024/09/03 15:11:29 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:29 - mmengine - INFO - Epoch(train)  [54][5/5]  lr: 2.697695e-04  eta: 0:00:59  time: 0.254302  data_time: 0.069467  memory: 4929  loss: 0.000680  loss_kpt: 0.000680  acc_pose: 0.912271
+2024/09/03 15:11:30 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:30 - mmengine - INFO - Epoch(train)  [55][5/5]  lr: 2.747745e-04  eta: 0:00:57  time: 0.254364  data_time: 0.069118  memory: 4929  loss: 0.000653  loss_kpt: 0.000653  acc_pose: 0.933505
+2024/09/03 15:11:31 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:31 - mmengine - INFO - Epoch(train)  [56][5/5]  lr: 2.797796e-04  eta: 0:00:56  time: 0.254495  data_time: 0.069093  memory: 4929  loss: 0.000624  loss_kpt: 0.000624  acc_pose: 0.923810
+2024/09/03 15:11:32 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:32 - mmengine - INFO - Epoch(train)  [57][5/5]  lr: 2.847846e-04  eta: 0:00:55  time: 0.254797  data_time: 0.069326  memory: 4929  loss: 0.000600  loss_kpt: 0.000600  acc_pose: 0.943929
+2024/09/03 15:11:34 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:34 - mmengine - INFO - Epoch(train)  [58][5/5]  lr: 2.897896e-04  eta: 0:00:53  time: 0.257140  data_time: 0.069451  memory: 4929  loss: 0.000574  loss_kpt: 0.000574  acc_pose: 0.981042
+2024/09/03 15:11:35 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:35 - mmengine - INFO - Epoch(train)  [59][5/5]  lr: 2.947946e-04  eta: 0:00:52  time: 0.257446  data_time: 0.069418  memory: 4929  loss: 0.000552  loss_kpt: 0.000552  acc_pose: 0.931332
+2024/09/03 15:11:36 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:36 - mmengine - INFO - Epoch(train)  [60][5/5]  lr: 2.997996e-04  eta: 0:00:51  time: 0.255674  data_time: 0.069002  memory: 4929  loss: 0.000537  loss_kpt: 0.000537  acc_pose: 0.957791
+2024/09/03 15:11:36 - mmengine - INFO - Saving checkpoint at 60 epochs
+2024/09/03 15:11:38 - mmengine - INFO - Evaluating CocoMetric...
+2024/09/03 15:11:38 - mmengine - INFO - Epoch(val) [60][3/3]    coco/AP: 1.000000  coco/AP .5: 1.000000  coco/AP .75: 1.000000  coco/AP (M): -1.000000  coco/AP (L): 1.000000  coco/AR: 1.000000  coco/AR .5: 1.000000  coco/AR .75: 1.000000  coco/AR (M): -1.000000  coco/AR (L): 1.000000  data_time: 0.023006  time: 0.127913
+2024/09/03 15:11:38 - mmengine - INFO - The previous best checkpoint /workspace/mmpose-synthetic-tune/models/_train-2024-09-03_15-09-51-real-simillar-4/best_coco_AP_epoch_50.pth is removed
+2024/09/03 15:11:38 - mmengine - INFO - The best checkpoint with 1.0000 coco/AP at 60 epoch is saved to best_coco_AP_epoch_60.pth.
+2024/09/03 15:11:41 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:41 - mmengine - INFO - Epoch(train)  [61][5/5]  lr: 3.048046e-04  eta: 0:00:49  time: 0.254638  data_time: 0.068643  memory: 4929  loss: 0.000518  loss_kpt: 0.000518  acc_pose: 0.960737
+2024/09/03 15:11:43 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:43 - mmengine - INFO - Epoch(train)  [62][5/5]  lr: 3.098096e-04  eta: 0:00:48  time: 0.254007  data_time: 0.068569  memory: 4929  loss: 0.000499  loss_kpt: 0.000499  acc_pose: 0.942248
+2024/09/03 15:11:44 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:44 - mmengine - INFO - Epoch(train)  [63][5/5]  lr: 3.148146e-04  eta: 0:00:47  time: 0.249914  data_time: 0.068764  memory: 4929  loss: 0.000484  loss_kpt: 0.000484  acc_pose: 0.946071
+2024/09/03 15:11:45 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:45 - mmengine - INFO - Epoch(train)  [64][5/5]  lr: 3.198196e-04  eta: 0:00:46  time: 0.250165  data_time: 0.069040  memory: 4929  loss: 0.000471  loss_kpt: 0.000471  acc_pose: 0.964732
+2024/09/03 15:11:47 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:47 - mmengine - INFO - Epoch(train)  [65][5/5]  lr: 3.248246e-04  eta: 0:00:44  time: 0.253356  data_time: 0.070003  memory: 4929  loss: 0.000456  loss_kpt: 0.000456  acc_pose: 0.955000
+2024/09/03 15:11:48 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:48 - mmengine - INFO - Epoch(train)  [66][5/5]  lr: 3.298297e-04  eta: 0:00:43  time: 0.254923  data_time: 0.070781  memory: 4929  loss: 0.000442  loss_kpt: 0.000442  acc_pose: 0.990417
+2024/09/03 15:11:49 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:49 - mmengine - INFO - Epoch(train)  [67][5/5]  lr: 3.348347e-04  eta: 0:00:42  time: 0.256148  data_time: 0.070921  memory: 4929  loss: 0.000427  loss_kpt: 0.000427  acc_pose: 0.943452
+2024/09/03 15:11:51 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:51 - mmengine - INFO - Epoch(train)  [68][5/5]  lr: 3.398397e-04  eta: 0:00:41  time: 0.260913  data_time: 0.070916  memory: 4929  loss: 0.000416  loss_kpt: 0.000416  acc_pose: 0.980833
+2024/09/03 15:11:52 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:52 - mmengine - INFO - Epoch(train)  [69][5/5]  lr: 3.448447e-04  eta: 0:00:39  time: 0.260926  data_time: 0.071303  memory: 4929  loss: 0.000409  loss_kpt: 0.000409  acc_pose: 0.950327
+2024/09/03 15:11:53 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:53 - mmengine - INFO - Epoch(train)  [70][5/5]  lr: 3.498497e-04  eta: 0:00:38  time: 0.260630  data_time: 0.071477  memory: 4929  loss: 0.000403  loss_kpt: 0.000403  acc_pose: 0.937821
+2024/09/03 15:11:53 - mmengine - INFO - Saving checkpoint at 70 epochs
+2024/09/03 15:11:55 - mmengine - INFO - Evaluating CocoMetric...
+2024/09/03 15:11:55 - mmengine - INFO - Epoch(val) [70][3/3]    coco/AP: 1.000000  coco/AP .5: 1.000000  coco/AP .75: 1.000000  coco/AP (M): -1.000000  coco/AP (L): 1.000000  coco/AR: 1.000000  coco/AR .5: 1.000000  coco/AR .75: 1.000000  coco/AR (M): -1.000000  coco/AR (L): 1.000000  data_time: 0.023280  time: 0.127386
+2024/09/03 15:11:56 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:56 - mmengine - INFO - Epoch(train)  [71][5/5]  lr: 3.548547e-04  eta: 0:00:37  time: 0.259348  data_time: 0.072211  memory: 4929  loss: 0.000398  loss_kpt: 0.000398  acc_pose: 0.951058
+2024/09/03 15:11:58 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:58 - mmengine - INFO - Epoch(train)  [72][5/5]  lr: 3.598597e-04  eta: 0:00:35  time: 0.258541  data_time: 0.071976  memory: 4929  loss: 0.000393  loss_kpt: 0.000393  acc_pose: 0.941639
+2024/09/03 15:11:59 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:11:59 - mmengine - INFO - Epoch(train)  [73][5/5]  lr: 3.648647e-04  eta: 0:00:34  time: 0.258268  data_time: 0.071567  memory: 4929  loss: 0.000384  loss_kpt: 0.000384  acc_pose: 0.983958
+2024/09/03 15:12:00 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:12:00 - mmengine - INFO - Epoch(train)  [74][5/5]  lr: 3.698697e-04  eta: 0:00:33  time: 0.257309  data_time: 0.070934  memory: 4929  loss: 0.000373  loss_kpt: 0.000373  acc_pose: 0.956815
+2024/09/03 15:12:01 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:12:01 - mmengine - INFO - Epoch(train)  [75][5/5]  lr: 3.748747e-04  eta: 0:00:31  time: 0.254245  data_time: 0.070151  memory: 4929  loss: 0.000368  loss_kpt: 0.000368  acc_pose: 0.951236
+2024/09/03 15:12:02 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:12:02 - mmengine - INFO - Epoch(train)  [76][5/5]  lr: 3.798798e-04  eta: 0:00:30  time: 0.251625  data_time: 0.069195  memory: 4929  loss: 0.000368  loss_kpt: 0.000368  acc_pose: 0.943397
+2024/09/03 15:12:04 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:12:04 - mmengine - INFO - Epoch(train)  [77][5/5]  lr: 3.848848e-04  eta: 0:00:29  time: 0.250403  data_time: 0.068575  memory: 4929  loss: 0.000363  loss_kpt: 0.000363  acc_pose: 0.973899
+2024/09/03 15:12:05 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:12:05 - mmengine - INFO - Epoch(train)  [78][5/5]  lr: 3.898898e-04  eta: 0:00:28  time: 0.243026  data_time: 0.068337  memory: 4929  loss: 0.000361  loss_kpt: 0.000361  acc_pose: 0.973958
+2024/09/03 15:12:06 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:12:06 - mmengine - INFO - Epoch(train)  [79][5/5]  lr: 3.948948e-04  eta: 0:00:26  time: 0.244393  data_time: 0.068518  memory: 4929  loss: 0.000354  loss_kpt: 0.000354  acc_pose: 0.947136
+2024/09/03 15:12:07 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:12:07 - mmengine - INFO - Epoch(train)  [80][5/5]  lr: 3.998998e-04  eta: 0:00:25  time: 0.243958  data_time: 0.068307  memory: 4929  loss: 0.000346  loss_kpt: 0.000346  acc_pose: 0.967440
+2024/09/03 15:12:07 - mmengine - INFO - Saving checkpoint at 80 epochs
+2024/09/03 15:12:09 - mmengine - INFO - Evaluating CocoMetric...
+2024/09/03 15:12:09 - mmengine - INFO - Epoch(val) [80][3/3]    coco/AP: 0.994059  coco/AP .5: 1.000000  coco/AP .75: 1.000000  coco/AP (M): -1.000000  coco/AP (L): 0.994059  coco/AR: 0.994737  coco/AR .5: 1.000000  coco/AR .75: 1.000000  coco/AR (M): -1.000000  coco/AR (L): 0.994737  data_time: 0.022409  time: 0.122466
+2024/09/03 15:12:10 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:12:10 - mmengine - INFO - Epoch(train)  [81][5/5]  lr: 4.049048e-04  eta: 0:00:24  time: 0.245841  data_time: 0.068500  memory: 4929  loss: 0.000337  loss_kpt: 0.000337  acc_pose: 0.980321
+2024/09/03 15:12:12 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:12:12 - mmengine - INFO - Epoch(train)  [82][5/5]  lr: 4.099098e-04  eta: 0:00:22  time: 0.246541  data_time: 0.068434  memory: 4929  loss: 0.000329  loss_kpt: 0.000329  acc_pose: 0.951875
+2024/09/03 15:12:13 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:12:13 - mmengine - INFO - Epoch(train)  [83][5/5]  lr: 4.149148e-04  eta: 0:00:21  time: 0.248414  data_time: 0.069312  memory: 4929  loss: 0.000326  loss_kpt: 0.000326  acc_pose: 0.990000
+2024/09/03 15:12:14 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:12:14 - mmengine - INFO - Epoch(train)  [84][5/5]  lr: 4.199198e-04  eta: 0:00:20  time: 0.248755  data_time: 0.069604  memory: 4929  loss: 0.000328  loss_kpt: 0.000328  acc_pose: 0.946065
+2024/09/03 15:12:15 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:12:15 - mmengine - INFO - Epoch(train)  [85][5/5]  lr: 4.249248e-04  eta: 0:00:19  time: 0.248134  data_time: 0.069491  memory: 4929  loss: 0.000325  loss_kpt: 0.000325  acc_pose: 0.983720
+2024/09/03 15:12:17 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:12:17 - mmengine - INFO - Epoch(train)  [86][5/5]  lr: 4.299299e-04  eta: 0:00:17  time: 0.248647  data_time: 0.069388  memory: 4929  loss: 0.000322  loss_kpt: 0.000322  acc_pose: 0.968750
+2024/09/03 15:12:18 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:12:18 - mmengine - INFO - Epoch(train)  [87][5/5]  lr: 4.349349e-04  eta: 0:00:16  time: 0.248850  data_time: 0.069490  memory: 4929  loss: 0.000317  loss_kpt: 0.000317  acc_pose: 0.990625
+2024/09/03 15:12:19 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:12:19 - mmengine - INFO - Epoch(train)  [88][5/5]  lr: 4.399399e-04  eta: 0:00:15  time: 0.248861  data_time: 0.069689  memory: 4929  loss: 0.000310  loss_kpt: 0.000310  acc_pose: 0.972969
+2024/09/03 15:12:20 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:12:20 - mmengine - INFO - Epoch(train)  [89][5/5]  lr: 4.449449e-04  eta: 0:00:13  time: 0.248067  data_time: 0.069507  memory: 4929  loss: 0.000309  loss_kpt: 0.000309  acc_pose: 0.987054
+2024/09/03 15:12:22 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:12:22 - mmengine - INFO - Epoch(train)  [90][5/5]  lr: 4.499499e-04  eta: 0:00:12  time: 0.248974  data_time: 0.069506  memory: 4929  loss: 0.000304  loss_kpt: 0.000304  acc_pose: 0.973750
+2024/09/03 15:12:22 - mmengine - INFO - Saving checkpoint at 90 epochs
+2024/09/03 15:12:23 - mmengine - INFO - Evaluating CocoMetric...
+2024/09/03 15:12:23 - mmengine - INFO - Epoch(val) [90][3/3]    coco/AP: 1.000000  coco/AP .5: 1.000000  coco/AP .75: 1.000000  coco/AP (M): -1.000000  coco/AP (L): 1.000000  coco/AR: 1.000000  coco/AR .5: 1.000000  coco/AR .75: 1.000000  coco/AR (M): -1.000000  coco/AR (L): 1.000000  data_time: 0.022457  time: 0.119724
+2024/09/03 15:12:25 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:12:25 - mmengine - INFO - Epoch(train)  [91][5/5]  lr: 4.549549e-04  eta: 0:00:11  time: 0.246905  data_time: 0.069023  memory: 4929  loss: 0.000304  loss_kpt: 0.000304  acc_pose: 0.972582
+2024/09/03 15:12:26 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:12:26 - mmengine - INFO - Epoch(train)  [92][5/5]  lr: 4.599599e-04  eta: 0:00:10  time: 0.246742  data_time: 0.069120  memory: 4929  loss: 0.000303  loss_kpt: 0.000303  acc_pose: 0.963624
+2024/09/03 15:12:27 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:12:27 - mmengine - INFO - Epoch(train)  [93][5/5]  lr: 4.649649e-04  eta: 0:00:08  time: 0.245340  data_time: 0.068675  memory: 4929  loss: 0.000298  loss_kpt: 0.000298  acc_pose: 0.946987
+2024/09/03 15:12:29 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:12:29 - mmengine - INFO - Epoch(train)  [94][5/5]  lr: 4.699699e-04  eta: 0:00:07  time: 0.247304  data_time: 0.069035  memory: 4929  loss: 0.000295  loss_kpt: 0.000295  acc_pose: 0.964345
+2024/09/03 15:12:30 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:12:30 - mmengine - INFO - Epoch(train)  [95][5/5]  lr: 4.749749e-04  eta: 0:00:06  time: 0.248116  data_time: 0.069392  memory: 4929  loss: 0.000298  loss_kpt: 0.000298  acc_pose: 0.984375
+2024/09/03 15:12:31 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:12:31 - mmengine - INFO - Epoch(train)  [96][5/5]  lr: 4.799800e-04  eta: 0:00:05  time: 0.247247  data_time: 0.069231  memory: 4929  loss: 0.000295  loss_kpt: 0.000295  acc_pose: 0.980417
+2024/09/03 15:12:32 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:12:32 - mmengine - INFO - Epoch(train)  [97][5/5]  lr: 4.849850e-04  eta: 0:00:03  time: 0.246373  data_time: 0.069039  memory: 4929  loss: 0.000303  loss_kpt: 0.000303  acc_pose: 0.967262
+2024/09/03 15:12:33 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:12:33 - mmengine - INFO - Epoch(train)  [98][5/5]  lr: 4.899900e-04  eta: 0:00:02  time: 0.246828  data_time: 0.069026  memory: 4929  loss: 0.000306  loss_kpt: 0.000306  acc_pose: 0.956273
+2024/09/03 15:12:35 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:12:35 - mmengine - INFO - Epoch(train)  [99][5/5]  lr: 4.949950e-04  eta: 0:00:01  time: 0.246428  data_time: 0.068744  memory: 4929  loss: 0.000308  loss_kpt: 0.000308  acc_pose: 0.934466
+2024/09/03 15:12:36 - mmengine - INFO - Exp name: 20kp-real-simillar_20240903_150953
+2024/09/03 15:12:36 - mmengine - INFO - Epoch(train) [100][5/5]  lr: 5.000000e-04  eta: 0:00:00  time: 0.245761  data_time: 0.068869  memory: 4929  loss: 0.000313  loss_kpt: 0.000313  acc_pose: 0.973452
+2024/09/03 15:12:36 - mmengine - INFO - Saving checkpoint at 100 epochs
+2024/09/03 15:12:38 - mmengine - INFO - Evaluating CocoMetric...
+2024/09/03 15:12:38 - mmengine - INFO - Epoch(val) [100][3/3]    coco/AP: 0.992705  coco/AP .5: 1.000000  coco/AP .75: 1.000000  coco/AP (M): -1.000000  coco/AP (L): 0.992705  coco/AR: 0.994737  coco/AR .5: 1.000000  coco/AR .75: 1.000000  coco/AR (M): -1.000000  coco/AR (L): 0.994737  data_time: 0.021879  time: 0.134702

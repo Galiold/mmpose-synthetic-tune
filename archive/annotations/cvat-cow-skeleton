@@ -1,0 +1,152 @@
+[
+  {
+    "name": "cow",
+    "id": 260,
+    "color": "#c06000",
+    "type": "skeleton",
+    "sublabels": [
+      {
+        "name": "Back1",
+        "attributes": [],
+        "type": "points",
+        "color": "#ffa566",
+        "id": 261
+      },
+      {
+        "name": "Back2",
+        "attributes": [],
+        "type": "points",
+        "color": "#77d9ee",
+        "id": 262
+      },
+      {
+        "name": "Back3",
+        "attributes": [],
+        "type": "points",
+        "color": "#4246d7",
+        "id": 263
+      },
+      {
+        "name": "Back4",
+        "attributes": [],
+        "type": "points",
+        "color": "#c56c61",
+        "id": 264
+      },
+      {
+        "name": "Head",
+        "attributes": [],
+        "type": "points",
+        "color": "#ba9109",
+        "id": 265
+      },
+      {
+        "name": "Nose",
+        "attributes": [],
+        "type": "points",
+        "color": "#4dc8fc",
+        "id": 266
+      },
+      {
+        "name": "Neck",
+        "attributes": [],
+        "type": "points",
+        "color": "#f7af42",
+        "id": 267
+      },
+      {
+        "name": "L_Shoulder",
+        "attributes": [],
+        "type": "points",
+        "color": "#9f4334",
+        "id": 268
+      },
+      {
+        "name": "L_Elbow",
+        "attributes": [],
+        "type": "points",
+        "color": "#af5d30",
+        "id": 269
+      },
+      {
+        "name": "L_F_Paw",
+        "attributes": [],
+        "type": "points",
+        "color": "#a6f7c3",
+        "id": 270
+      },
+      {
+        "name": "R_Shoulder",
+        "attributes": [],
+        "type": "points",
+        "color": "#2b5d46",
+        "id": 271
+      },
+      {
+        "name": "R_Elbow",
+        "attributes": [],
+        "type": "points",
+        "color": "#855065",
+        "id": 272
+      },
+      {
+        "name": "R_F_Paw",
+        "attributes": [],
+        "type": "points",
+        "color": "#4b7dc0",
+        "id": 273
+      },
+      {
+        "name": "Belly",
+        "attributes": [],
+        "type": "points",
+        "color": "#f21e64",
+        "id": 274
+      },
+      {
+        "name": "L_Hip",
+        "attributes": [],
+        "type": "points",
+        "color": "#2b8c5a",
+        "id": 275
+      },
+      {
+        "name": "L_Knee",
+        "attributes": [],
+        "type": "points",
+        "color": "#741b65",
+        "id": 276
+      },
+      {
+        "name": "L_H_Paw",
+        "attributes": [],
+        "type": "points",
+        "color": "#3d5c03",
+        "id": 277
+      },
+      {
+        "name": "R_Hip",
+        "attributes": [],
+        "type": "points",
+        "color": "#bfa552",
+        "id": 278
+      },
+      {
+        "name": "R_Knee",
+        "attributes": [],
+        "type": "points",
+        "color": "#c29c8c",
+        "id": 279
+      },
+      {
+        "name": "R_H_Paw",
+        "attributes": [],
+        "type": "points",
+        "color": "#4b7f19",
+        "id": 280
+      }
+    ],
+    "svg": "<line x1=&quot;30.016721725463867&quot; y1=&quot;43.04844284057617&quot; x2=&quot;15.635451316833496&quot; y2=&quot;24.653793334960938&quot; data-type=&quot;edge&quot; data-node-from=&quot;18&quot; data-node-to=&quot;1&quot;></line>\n<line x1=&quot;22.49163818359375&quot; y1=&quot;42.713993072509766&quot; x2=&quot;15.635451316833496&quot; y2=&quot;24.653793334960938&quot; data-type=&quot;edge&quot; data-node-from=&quot;15&quot; data-node-to=&quot;1&quot;></line>\n<line x1=&quot;27.50836181640625&quot; y1=&quot;53.41633605957031&quot; x2=&quot;29.013378143310547&quot; y2=&quot;61.77753829956055&quot; data-type=&quot;edge&quot; data-node-from=&quot;19&quot; data-node-to=&quot;20&quot;></line>\n<line x1=&quot;30.016721725463867&quot; y1=&quot;43.04844284057617&quot; x2=&quot;27.50836181640625&quot; y2=&quot;53.41633605957031&quot; data-type=&quot;edge&quot; data-node-from=&quot;18&quot; data-node-to=&quot;19&quot;></line>\n<line x1=&quot;18.14381217956543&quot; y1=&quot;53.583560943603516&quot; x2=&quot;17.474916458129883&quot; y2=&quot;62.7808837890625&quot; data-type=&quot;edge&quot; data-node-from=&quot;16&quot; data-node-to=&quot;17&quot;></line>\n<line x1=&quot;22.49163818359375&quot; y1=&quot;42.713993072509766&quot; x2=&quot;18.14381217956543&quot; y2=&quot;53.583560943603516&quot; data-type=&quot;edge&quot; data-node-from=&quot;15&quot; data-node-to=&quot;16&quot;></line>\n<line x1=&quot;41.55518341064453&quot; y1=&quot;45.724029541015625&quot; x2=&quot;30.016721725463867&quot; y2=&quot;43.04844284057617&quot; data-type=&quot;edge&quot; data-node-from=&quot;14&quot; data-node-to=&quot;18&quot;></line>\n<line x1=&quot;41.55518341064453&quot; y1=&quot;45.724029541015625&quot; x2=&quot;22.49163818359375&quot; y2=&quot;42.713993072509766&quot; data-type=&quot;edge&quot; data-node-from=&quot;14&quot; data-node-to=&quot;15&quot;></line>\n<line x1=&quot;68.6454849243164&quot; y1=&quot;44.051788330078125&quot; x2=&quot;41.55518341064453&quot; y2=&quot;45.724029541015625&quot; data-type=&quot;edge&quot; data-node-from=&quot;11&quot; data-node-to=&quot;14&quot;></line>\n<line x1=&quot;58.61204147338867&quot; y1=&quot;42.379547119140625&quot; x2=&quot;41.55518341064453&quot; y2=&quot;45.724029541015625&quot; data-type=&quot;edge&quot; data-node-from=&quot;8&quot; data-node-to=&quot;14&quot;></line>\n<line x1=&quot;68.81270599365234&quot; y1=&quot;52.747440338134766&quot; x2=&quot;72.15718841552734&quot; y2=&quot;61.94476318359375&quot; data-type=&quot;edge&quot; data-node-from=&quot;12&quot; data-node-to=&quot;13&quot;></line>\n<line x1=&quot;68.6454849243164&quot; y1=&quot;44.051788330078125&quot; x2=&quot;68.81270599365234&quot; y2=&quot;52.747440338134766&quot; data-type=&quot;edge&quot; data-node-from=&quot;11&quot; data-node-to=&quot;12&quot;></line>\n<line x1=&quot;71.48829650878906&quot; y1=&quot;31.84442901611328&quot; x2=&quot;68.6454849243164&quot; y2=&quot;44.051788330078125&quot; data-type=&quot;edge&quot; data-node-from=&quot;7&quot; data-node-to=&quot;11&quot;></line>\n<line x1=&quot;56.10367965698242&quot; y1=&quot;52.747440338134766&quot; x2=&quot;54.76588439941406&quot; y2=&quot;63.115333557128906&quot; data-type=&quot;edge&quot; data-node-from=&quot;9&quot; data-node-to=&quot;10&quot;></line>\n<line x1=&quot;58.61204147338867&quot; y1=&quot;42.379547119140625&quot; x2=&quot;56.10367965698242&quot; y2=&quot;52.747440338134766&quot; data-type=&quot;edge&quot; data-node-from=&quot;8&quot; data-node-to=&quot;9&quot;></line>\n<line x1=&quot;71.48829650878906&quot; y1=&quot;31.84442901611328&quot; x2=&quot;58.61204147338867&quot; y2=&quot;42.379547119140625&quot; data-type=&quot;edge&quot; data-node-from=&quot;7&quot; data-node-to=&quot;8&quot;></line>\n<line x1=&quot;87.04013061523438&quot; y1=&quot;31.67720603942871&quot; x2=&quot;79.01337432861328&quot; y2=&quot;17.463157653808594&quot; data-type=&quot;edge&quot; data-node-from=&quot;6&quot; data-node-to=&quot;5&quot;></line>\n<line x1=&quot;71.48829650878906&quot; y1=&quot;31.84442901611328&quot; x2=&quot;87.04013061523438&quot; y2=&quot;31.67720603942871&quot; data-type=&quot;edge&quot; data-node-from=&quot;7&quot; data-node-to=&quot;6&quot;></line>\n<line x1=&quot;64.46488189697266&quot; y1=&quot;24.152122497558594&quot; x2=&quot;71.48829650878906&quot; y2=&quot;31.84442901611328&quot; data-type=&quot;edge&quot; data-node-from=&quot;4&quot; data-node-to=&quot;7&quot;></line>\n<line x1=&quot;45.903011322021484&quot; y1=&quot;24.486570358276367&quot; x2=&quot;64.46488189697266&quot; y2=&quot;24.152122497558594&quot; data-type=&quot;edge&quot; data-node-from=&quot;3&quot; data-node-to=&quot;4&quot;></line>\n<line x1=&quot;30.18394660949707&quot; y1=&quot;24.486570358276367&quot; x2=&quot;45.903011322021484&quot; y2=&quot;24.486570358276367&quot; data-type=&quot;edge&quot; data-node-from=&quot;2&quot; data-node-to=&quot;3&quot;></line>\n<line x1=&quot;15.635451316833496&quot; y1=&quot;24.653793334960938&quot; x2=&quot;30.18394660949707&quot; y2=&quot;24.486570358276367&quot; data-type=&quot;edge&quot; data-node-from=&quot;1&quot; data-node-to=&quot;2&quot;></line>\n<circle r=&quot;0.75&quot; cx=&quot;15.635451316833496&quot; cy=&quot;24.653793334960938&quot; data-type=&quot;element node&quot; data-element-id=&quot;1&quot; data-node-id=&quot;1&quot; data-label-id=&quot;261&quot;></circle>\n<circle r=&quot;0.75&quot; cx=&quot;30.18394660949707&quot; cy=&quot;24.486570358276367&quot; data-type=&quot;element node&quot; data-element-id=&quot;2&quot; data-node-id=&quot;2&quot; data-label-id=&quot;262&quot;></circle>\n<circle r=&quot;0.75&quot; cx=&quot;45.903011322021484&quot; cy=&quot;24.486570358276367&quot; data-type=&quot;element node&quot; data-element-id=&quot;3&quot; data-node-id=&quot;3&quot; data-label-id=&quot;263&quot;></circle>\n<circle r=&quot;0.75&quot; cx=&quot;64.46488189697266&quot; cy=&quot;24.152122497558594&quot; data-type=&quot;element node&quot; data-element-id=&quot;4&quot; data-node-id=&quot;4&quot; data-label-id=&quot;264&quot;></circle>\n<circle r=&quot;0.75&quot; cx=&quot;79.01337432861328&quot; cy=&quot;17.463157653808594&quot; data-type=&quot;element node&quot; data-element-id=&quot;5&quot; data-node-id=&quot;5&quot; data-label-id=&quot;265&quot;></circle>\n<circle r=&quot;0.75&quot; cx=&quot;87.04013061523438&quot; cy=&quot;31.67720603942871&quot; data-type=&quot;element node&quot; data-element-id=&quot;6&quot; data-node-id=&quot;6&quot; data-label-id=&quot;266&quot;></circle>\n<circle r=&quot;0.75&quot; cx=&quot;71.48829650878906&quot; cy=&quot;31.84442901611328&quot; data-type=&quot;element node&quot; data-element-id=&quot;7&quot; data-node-id=&quot;7&quot; data-label-id=&quot;267&quot;></circle>\n<circle r=&quot;0.75&quot; cx=&quot;58.61204147338867&quot; cy=&quot;42.379547119140625&quot; data-type=&quot;element node&quot; data-element-id=&quot;8&quot; data-node-id=&quot;8&quot; data-label-id=&quot;268&quot;></circle>\n<circle r=&quot;0.75&quot; cx=&quot;56.10367965698242&quot; cy=&quot;52.747440338134766&quot; data-type=&quot;element node&quot; data-element-id=&quot;9&quot; data-node-id=&quot;9&quot; data-label-id=&quot;269&quot;></circle>\n<circle r=&quot;0.75&quot; cx=&quot;54.76588439941406&quot; cy=&quot;63.115333557128906&quot; data-type=&quot;element node&quot; data-element-id=&quot;10&quot; data-node-id=&quot;10&quot; data-label-id=&quot;270&quot;></circle>\n<circle r=&quot;0.75&quot; cx=&quot;68.6454849243164&quot; cy=&quot;44.051788330078125&quot; data-type=&quot;element node&quot; data-element-id=&quot;11&quot; data-node-id=&quot;11&quot; data-label-id=&quot;271&quot;></circle>\n<circle r=&quot;0.75&quot; cx=&quot;68.81270599365234&quot; cy=&quot;52.747440338134766&quot; data-type=&quot;element node&quot; data-element-id=&quot;12&quot; data-node-id=&quot;12&quot; data-label-id=&quot;272&quot;></circle>\n<circle r=&quot;0.75&quot; cx=&quot;72.15718841552734&quot; cy=&quot;61.94476318359375&quot; data-type=&quot;element node&quot; data-element-id=&quot;13&quot; data-node-id=&quot;13&quot; data-label-id=&quot;273&quot;></circle>\n<circle r=&quot;0.75&quot; cx=&quot;41.55518341064453&quot; cy=&quot;45.724029541015625&quot; data-type=&quot;element node&quot; data-element-id=&quot;14&quot; data-node-id=&quot;14&quot; data-label-id=&quot;274&quot;></circle>\n<circle r=&quot;0.75&quot; cx=&quot;22.49163818359375&quot; cy=&quot;42.713993072509766&quot; data-type=&quot;element node&quot; data-element-id=&quot;15&quot; data-node-id=&quot;15&quot; data-label-id=&quot;275&quot;></circle>\n<circle r=&quot;0.75&quot; cx=&quot;18.14381217956543&quot; cy=&quot;53.583560943603516&quot; data-type=&quot;element node&quot; data-element-id=&quot;16&quot; data-node-id=&quot;16&quot; data-label-id=&quot;276&quot;></circle>\n<circle r=&quot;0.75&quot; cx=&quot;17.474916458129883&quot; cy=&quot;62.7808837890625&quot; data-type=&quot;element node&quot; data-element-id=&quot;17&quot; data-node-id=&quot;17&quot; data-label-id=&quot;277&quot;></circle>\n<circle r=&quot;0.75&quot; cx=&quot;30.016721725463867&quot; cy=&quot;43.04844284057617&quot; data-type=&quot;element node&quot; data-element-id=&quot;18&quot; data-node-id=&quot;18&quot; data-label-id=&quot;278&quot;></circle>\n<circle r=&quot;0.75&quot; cx=&quot;27.50836181640625&quot; cy=&quot;53.41633605957031&quot; data-type=&quot;element node&quot; data-element-id=&quot;19&quot; data-node-id=&quot;19&quot; data-label-id=&quot;279&quot;></circle>\n<circle r=&quot;0.75&quot; cx=&quot;29.013378143310547&quot; cy=&quot;61.77753829956055&quot; data-type=&quot;element node&quot; data-element-id=&quot;20&quot; data-node-id=&quot;20&quot; data-label-id=&quot;280&quot;></circle>",
+    "attributes": []
+  }
+]
