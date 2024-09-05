@@ -49,8 +49,9 @@ class CustomCOCO(COCO):
         return new_dataset
 
 
-coco1 = CustomCOCO('../datasets/annotations/20kp-real-simillar-val.json')
-coco2 = CustomCOCO('../datasets/annotations/20kp-synthetic-varied-val.json')
+for i in range(10):
+    coco1 = CustomCOCO(f'../datasets/annotations/20kp-real-simillar-val-{i}.json')
+    coco2 = CustomCOCO(f'../datasets/annotations/20kp-synthetic-varied-val-{i}.json')
 
-with open('../datasets/annotations/20kp-combined-val.json', 'w') as f:
-    json.dump(coco1 + coco2, f)
+    with open(f'../datasets/annotations/20kp-combined-val-{i}.json', 'w') as f:
+        json.dump(coco1 + coco2, f)
